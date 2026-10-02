@@ -2519,9 +2519,9 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
             <p className="footer-brand-desc">A boutique mountain homestay in Nashik, Maharashtra. The perfect base for Nashik pilgrims and Himalayan adventurers.</p>
             {/* Placeholder handles — swap in the real profile URLs when ready */}
             <div className="footer-social">
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon size={18} /></a>
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FacebookIcon size={18} /></a>
-              <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={18} /></a>
+              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon size={18} /></a>
+              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FacebookIcon size={18} /></a>
+              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={18} /></a>
             </div>
           </div>
           <div className="footer-col footer-col-explore">
@@ -2843,6 +2843,8 @@ export default function App() {
     </div>
   );
 }
+
+
 
 
 
