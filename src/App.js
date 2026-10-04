@@ -14,6 +14,10 @@ import roomCard1 from "./assets/images/room-card-1.jpg";
 import roomCard2 from "./assets/images/room-card-2.jpg";
 // Video-section thumbnails (see src/assets/videos — optimized copies in videos-opt/)
 const logoImg = raikholaLogo;
+import ownerImg from "./assets/images/owner.jpg";
+import glimpse1 from "./assets/images/glimpse1.jpg";
+import glimpse2 from "./assets/images/glimpse2.jpg";
+import glimpse3 from "./assets/images/glimpse3.jpg";
 // ─── LOCAL IMAGES (optimized copies — see scripts/optimize-images.js) ──────
 const imgGuest1 = guestNight;
 const imgGuest2 = guestDrums;
@@ -130,21 +134,28 @@ const ROOMS = [
 ];
 
 const TESTIMONIALS = [
-  { name: "Prashant Chauhan", location: "Delhi", rating: 5, photo: reviewPrashant,
+  { name: "Prashant Chauhan", location: "Delhi", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Prashant",
     text: "Perfect base for the Adi Kailash yatra. The Himalayan peak view from our room was unreal, and the home-cooked local food after a long trek felt like a blessing. Clean rooms, kind hosts — I can't wait to come back." },
-  { name: "Mayur Patil", location: "Chandigarh", rating: 5, photo: reviewSahil,
+  { name: "Mayur Patil", location: "Chandigarh", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Mayur",
     text: "Hot water at 5am before the trek, honest advice on timings, and a bonfire with chai and mountain stories at night. Raikhola Homestay takes care of everything so you only have to enjoy the yatra." },
-  { name: "Priya", location: "Dehradun", rating: 5, photo: reviewPriya,
+  { name: "Priya", location: "Dehradun", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Priya",
     text: "I drove up from Dehradun with my parents for a quiet break and got so much more. We spent mornings on village walks and evenings around the bonfire, and the home-cooked food tasted just like a meal at my nani's place. None of us wanted to leave." },
-  { name: "Sweta", location: "Lucknow", rating: 4, photo: reviewSweta,
+  { name: "Sweta", location: "Lucknow", rating: 4, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Sweta",
     text: "Traveling solo from Lucknow, I was nervous about staying in a homestay — within a day, the family had me feeling like one of their own. They arranged my cab and helped plan every little detail. The network in my room was patchy, but honestly? It gave me the digital detox I didn't know I needed." },
-  { name: "Ammi", location: "USA", rating: 5, photo: reviewAmmi,
+  { name: "Ammi", location: "USA", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Ammi",
     text: "I came here for yoga and found real peace and nature here. Morning practice with the Himalayas in view, birdsong instead of traffic, and meals straight from the garden. I'm leaving calmer than I've ever been." },
-  { name: "Juliana", location: "Goa", rating: 5, photo: reviewJuliana,
+  { name: "Juliana", location: "Goa", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Juliana",
     text: "I traded Goa's beaches for the Himalayas and I'd do it again tomorrow. What stays with me isn't just the Adi Kailash darshan — it's the hot chai after long walks, dinner with the family, and sunsets over the valley. This place has a piece of my heart." },
+  { name: "Rahul Sharma", location: "Noida", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Rahul",
+    text: "यहाँ का अनुभव बहुत ही शानदार रहा। परिवार जैसा माहौल, साफ-सुथरे कमरे और घर का बना स्वादिष्ट खाना। पहाड़ों का नज़ारा मन मोह लेने वाला है। मैं फिर से आना चाहूँगा।" },
+  { name: "Anita Joshi", location: "Almora", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Anita",
+    text: "रैखोला होमस्टे में रुकना एक बेहतरीन अनुभव था। यहाँ के मेज़बान बहुत ही मिलनसार हैं। रात को बोनफायर के साथ उनकी कहानियाँ सुनना बहुत अच्छा लगा। आदि कैलाश यात्रा के लिए एकदम सही जगह है।" }
 ];
 
 const GALLERY = [
+  { url: glimpse1,    cat: "Views",        label: "Cozy Room" },
+  { url: glimpse2,    cat: "Views",        label: "Comfortable Stay" },
+  { url: glimpse3,    cat: "Views",        label: "Homestay Entrance" },
   { url: imgIce1,     cat: "Views",        label: "Raikhola Homestay" },
   { url: imgIce3,     cat: "Views",        label: "Mountain Vistas" },
   { url: imgIce4,     cat: "Views",        label: "Himalayan Peak View" },
@@ -2037,7 +2048,35 @@ function About() {
       <div className="about-grid reveal">
         <div className="about-img-stack">
           <div className="about-img-main">
-            <img src={imgIce4} alt="Mountain view from Raikhola Homestay" />
+            <div className="floating-caption" style={{
+              position: 'absolute',
+              top: '10%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'rgba(255, 255, 255, 0.95)',
+              padding: '10px 20px',
+              borderRadius: '30px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+              textAlign: 'center',
+              zIndex: 10,
+              fontFamily: "'DM Sans', sans-serif",
+              whiteSpace: 'nowrap'
+            }}>
+              <div style={{fontWeight: '700', color: '#1a3a4a'}}>Tikendra Singh Raikhola</div>
+              <div style={{fontSize: '0.85rem', color: '#5a7380'}}>Ex Indian Army jai Hind 🇮🇳</div>
+              {/* Cloud tail */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-8px',
+                left: '50%',
+                transform: 'translateX(-50%) rotate(45deg)',
+                width: '16px',
+                height: '16px',
+                background: 'rgba(255, 255, 255, 0.95)',
+                zIndex: -1
+              }}></div>
+            </div>
+            <img src={ownerImg} alt="Tikendra Singh Raikhola" />
           </div>
           <div className="about-img-accent">
             <img src={imgIce1} alt="View of Raikhola Homestay" />
