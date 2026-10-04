@@ -51,12 +51,12 @@ const imgSuperDelux = roomReal3;
 const imgStandard = roomCard2;
 const imgShared = roomReal2;
 // Guest review avatars (src/assets/images/reviews — file name = reviewer name)
-const reviewAmmi = guestBalcony;
-const reviewJuliana = guestDrums;
-const reviewPrashant = guestNight;
-const reviewPriya = extraRoom;
-const reviewSahil = guestEating;
-const reviewSweta = roomReal1;
+// const reviewAmmi = guestBalcony;
+// const reviewJuliana = guestDrums;
+// const reviewPrashant = guestNight;
+// const reviewPriya = extraRoom;
+// const reviewSahil = guestEating;
+// const reviewSweta = roomReal1;
 // ─── EMAILJS CONFIG ───────────────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID       = "service_e4gi90r";          
 const EMAILJS_PUBLIC_KEY       = "cqWBlZliX0aLNQQDB";        
@@ -2831,6 +2831,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
