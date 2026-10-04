@@ -10,6 +10,8 @@ import guestDrums from "./assets/images/guest-drums.jpg";
 import guestEating from "./assets/images/guest-eating.jpg";
 import guestBalcony from "./assets/images/guest-balcony.jpg";
 import extraRoom from "./assets/images/extra-room.jpg";
+import roomCard1 from "./assets/images/room-card-1.jpg";
+import roomCard2 from "./assets/images/room-card-2.jpg";
 // Video-section thumbnails (see src/assets/videos — optimized copies in videos-opt/)
 const logoImg = raikholaLogo;
 // ─── LOCAL IMAGES (optimized copies — see scripts/optimize-images.js) ──────
@@ -36,13 +38,13 @@ const roomImg10 = roomReal2;
 const roomImg11 = roomReal3;
 // Extra local images for Why Stay cards and experience section
 const whyHimalayanImg = raikholaPoster;
-const roomCardImg = roomReal1;
+const roomCardImg = roomCard1;
 const kedarImg = extraRoom;
 const peacefulImg = guestBalcony;
 const foodImg = guestEating;
 // Room card images — one per room type, from Rooms/room_front (exact names kept)
 const imgSuperDelux = roomReal3;
-const imgStandard = roomReal1;
+const imgStandard = roomCard2;
 const imgShared = roomReal2;
 // Guest review avatars (src/assets/images/reviews — file name = reviewer name)
 const reviewAmmi = guestBalcony;
@@ -2299,24 +2301,18 @@ function Contact() {
   const handleSend = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) { alert("Please fill all fields."); return; }
-    setSending(true);
-    try {
-      await sendEmail(EMAILJS_CONTACT_TEMPLATE, {
-        from_name:    form.name,
-        from_email:   form.email,
-        from_phone:   phone || "Not provided",
-        message:      form.message,
-        reply_to:     form.email,
-        sent_at:      new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
-      });
-      setSent(true);
-    } catch (err) {
-      // If EmailJS keys not yet set, still show confirmation (demo mode)
-      console.warn("EmailJS not configured:", err.message);
-      setSent(true);
-    } finally {
-      setSending(false);
-    }
+    
+    const msg = `Hello! I would like to get in touch.
+Name: ${form.name}
+Email: ${form.email}
+Phone: ${phone || "Not provided"}
+
+Message:
+${form.message}`;
+
+    const waUrl = `https://wa.me/917500960261?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, "_blank", "noopener");
+    setSent(true);
   };
 
   return (
