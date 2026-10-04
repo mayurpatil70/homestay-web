@@ -57,7 +57,6 @@ const reviewSweta = roomReal1;
 const EMAILJS_SERVICE_ID       = "service_e4gi90r";          
 const EMAILJS_PUBLIC_KEY       = "cqWBlZliX0aLNQQDB";        
 const EMAILJS_BOOKING_TEMPLATE = "template_r4zfcvr"; 
-const EMAILJS_CONTACT_TEMPLATE = "template_poipe2s"; 
 
 // ─── WHATSAPP BOOKING ───────────────────────────────────────────────────────
 const WA_NUMBER = "917500960261";
@@ -2296,7 +2295,6 @@ function Contact() {
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const [phone, setPhone] = useState("");
-  const [sending, setSending] = useState(false);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -2371,8 +2369,8 @@ ${form.message}`;
                   <textarea style={{ minHeight: "140px" }} placeholder="Ask about rooms, availability, trek guidance, group bookings..." value={form.message} onChange={e => set("message", e.target.value)} />
                 </div>
               </div>
-              <button type="submit" className="btn-primary" style={{ marginTop: "1rem", width: "100%", padding: "0.85rem" }} disabled={sending}>
-                {sending ? "Sending..." : <>Send Message <Send size={15} strokeWidth={2} style={{ verticalAlign: "-2px", marginLeft: "4px" }} /></>}
+              <button type="submit" className="btn-primary" style={{ marginTop: "1rem", width: "100%", padding: "0.85rem" }}>
+                Send Message <Send size={15} strokeWidth={2} style={{ verticalAlign: "-2px", marginLeft: "4px" }} />
               </button>
             </form>
           )}
