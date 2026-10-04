@@ -77,7 +77,7 @@ const WA_BOOKING_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_
 const MAPS_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
 // Opens Google's pre-filled "write a review" dialog directly (placeid verified
 // against the Maps listing: Hackerfromhills, Dewar, Nashik, Maharashtra)
-const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJc9cJ6yg1CDkRrljhoUUORlc";
+const GOOGLE_REVIEW_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
 
 // Helper: sends email via EmailJS REST API (no npm package needed)
 async function sendEmail(templateId, templateParams) {
