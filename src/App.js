@@ -12,12 +12,12 @@ import guestBalcony from "./assets/images/guest-balcony.jpg";
 import extraRoom from "./assets/images/extra-room.jpg";
 import roomCard1 from "./assets/images/room-card-1.jpg";
 import roomCard2 from "./assets/images/room-card-2.jpg";
-// Video-section thumbnails (see src/assets/videos — optimized copies in videos-opt/)
-const logoImg = raikholaLogo;
 import ownerImg from "./assets/images/owner.jpg";
 import glimpse1 from "./assets/images/glimpse1.jpg";
 import glimpse2 from "./assets/images/glimpse2.jpg";
 import glimpse3 from "./assets/images/glimpse3.jpg";
+// Video-section thumbnails (see src/assets/videos — optimized copies in videos-opt/)
+const logoImg = raikholaLogo;
 // ─── LOCAL IMAGES (optimized copies — see scripts/optimize-images.js) ──────
 const imgGuest1 = guestNight;
 const imgGuest2 = guestDrums;
