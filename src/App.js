@@ -1,53 +1,56 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
-import { BedDouble, Camera, Sparkles, Home as HomeIcon, MessageSquare, Film, Mountain, MountainSnow, ShieldCheck, Recycle, MapPin, Phone, Mail, Clock, MessageCircle, Lock, CheckCircle2, Send, CalendarDays, Star, Handshake, UtensilsCrossed, Helicopter, CarFront, FlameKindling, SquareParking, Leaf, Flower2, Heart, ChevronLeft, ChevronRight, Users, ScrollText, CalendarX, Baby, PawPrint, Wrench, Ban, AlertTriangle, Play, ArrowUp } from "lucide-react";
-// Web-optimized 720p copies (scripts/compress-videos.js) — originals kept in videos/
-const homestayVideo = "https://www.w3schools.com/html/mov_bbb.mp4";
-const frontVideo = "https://www.w3schools.com/html/mov_bbb.mp4";
-const videoInside = "https://www.w3schools.com/html/mov_bbb.mp4";
-const videoAround = "https://www.w3schools.com/html/mov_bbb.mp4";
+import { BedDouble, Camera, Sparkles, Home as HomeIcon, MessageSquare, Mountain, MountainSnow, ShieldCheck, Recycle, MapPin, Phone, Mail, Clock, MessageCircle, Lock, CheckCircle2, Send, CalendarDays, Star, Handshake, UtensilsCrossed, Helicopter, CarFront, FlameKindling, SquareParking, Leaf, Flower2, Heart, ChevronLeft, ChevronRight, Users, ScrollText, CalendarX, Baby, PawPrint, Wrench, Ban, AlertTriangle, ArrowUp } from "lucide-react";
+import raikholaLogo from "./assets/images/raikhola-logo.jpg";
+import raikholaPoster from "./assets/images/raikhola-poster.jpg";
+import roomReal1 from "./assets/images/room-real1.jpg";
+import roomReal2 from "./assets/images/room-real2.jpg";
+import roomReal3 from "./assets/images/room-real3.jpg";
+import guestNight from "./assets/images/guest-night.jpg";
+import guestDrums from "./assets/images/guest-drums.jpg";
+import guestEating from "./assets/images/guest-eating.jpg";
+import guestBalcony from "./assets/images/guest-balcony.jpg";
+import extraRoom from "./assets/images/extra-room.jpg";
 // Video-section thumbnails (see src/assets/videos — optimized copies in videos-opt/)
-const secondThumbnail = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const fourthThumbnail = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const logoImg = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=150&q=80";
+const logoImg = raikholaLogo;
 // ─── LOCAL IMAGES (optimized copies — see scripts/optimize-images.js) ──────
-const imgGuest1 = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const imgGuest2 = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const imgGuest3 = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const imgGuest4 = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const imgIce1 = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80";
-const imgIce3 = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const imgIce4 = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
-const imgAround1 = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80";
-const imgAround2 = "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&q=80";
-const roomImg1 = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
-const roomImg2 = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const roomImg3 = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const roomImg4 = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
-const roomImg5 = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const roomImg6 = "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&q=80";
-const roomImg7 = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const roomImg8 = "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&q=80";
-const roomImg9 = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const roomImgHero = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const roomImg10 = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const roomImg11 = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
+const imgGuest1 = guestNight;
+const imgGuest2 = guestDrums;
+const imgGuest3 = guestEating;
+const imgGuest4 = guestBalcony;
+const imgIce1 = raikholaPoster;
+const imgIce3 = roomReal1;
+const imgIce4 = roomReal2;
+const imgAround1 = roomReal3;
+const imgAround2 = extraRoom;
+const roomImg1 = extraRoom;
+const roomImg2 = roomReal1;
+const roomImg3 = roomReal2;
+const roomImg4 = roomReal3;
+const roomImg5 = extraRoom;
+const roomImg6 = roomReal1;
+const roomImg7 = roomReal2;
+const roomImg8 = roomReal3;
+const roomImg9 = extraRoom;
+const roomImgHero = roomReal1;
+const roomImg10 = roomReal2;
+const roomImg11 = roomReal3;
 // Extra local images for Why Stay cards and experience section
-const whyHimalayanImg = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80";
-const roomCardImg = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80";
-const kedarImg = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const peacefulImg = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const foodImg = "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80";
+const whyHimalayanImg = raikholaPoster;
+const roomCardImg = roomReal1;
+const kedarImg = extraRoom;
+const peacefulImg = guestBalcony;
+const foodImg = guestEating;
 // Room card images — one per room type, from Rooms/room_front (exact names kept)
-const imgSuperDelux = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
-const imgStandard = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const imgShared = "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=800&q=80";
+const imgSuperDelux = roomReal3;
+const imgStandard = roomReal1;
+const imgShared = roomReal2;
 // Guest review avatars (src/assets/images/reviews — file name = reviewer name)
-const reviewAmmi = "https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=800&q=80";
-const reviewJuliana = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80";
-const reviewPrashant = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
-const reviewPriya = "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80";
-const reviewSahil = "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&q=80";
-const reviewSweta = "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&q=80";
+const reviewAmmi = guestBalcony;
+const reviewJuliana = guestDrums;
+const reviewPrashant = guestNight;
+const reviewPriya = extraRoom;
+const reviewSahil = guestEating;
+const reviewSweta = roomReal1;
 // ─── EMAILJS CONFIG ───────────────────────────────────────────────────────────
 const EMAILJS_SERVICE_ID       = "service_e4gi90r";          
 const EMAILJS_PUBLIC_KEY       = "cqWBlZliX0aLNQQDB";        
@@ -55,9 +58,9 @@ const EMAILJS_BOOKING_TEMPLATE = "template_r4zfcvr";
 const EMAILJS_CONTACT_TEMPLATE = "template_poipe2s"; 
 
 // ─── WHATSAPP BOOKING ───────────────────────────────────────────────────────
-const WA_NUMBER = "919764559889";
+const WA_NUMBER = "917500960261";
 const WA_BOOKING_MESSAGE = [
-  "Hello! I'd like to book a stay at Hackerfromhills, Nashik.",
+  "Hello! I'd like to book a stay at Raikhola Homestay, Baluwakot, Uttarakhand.",
   "",
   "Room Type: ",
   "📅 Check-in: ",
@@ -69,7 +72,7 @@ const WA_BOOKING_MESSAGE = [
 const WA_BOOKING_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_BOOKING_MESSAGE)}`;
 
 // Exact Google Maps listing for the property (footer "Directions" + contact "Open in Google Maps")
-const MAPS_URL = "https://maps.app.goo.gl/zci13hnZwLqQ5CjD7";
+const MAPS_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
 // Opens Google's pre-filled "write a review" dialog directly (placeid verified
 // against the Maps listing: Hackerfromhills, Dewar, Nashik, Maharashtra)
 const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJc9cJ6yg1CDkRrljhoUUORlc";
@@ -94,7 +97,7 @@ const ROOMS = [
   {
     id: 1, name: "Himalayan Suite", type: "Deluxe", price: 3500,
     available: true, maxGuests: 3,
-    description: "Wake up to breathtaking Nashik peaks. Spacious suite with panoramic mountain views, premium bedding, and a private sit-out.",
+    description: "Wake up to breathtaking Himalayan peaks. Spacious suite with panoramic mountain views, premium bedding, and a private sit-out.",
     amenities: ["Mountain View", "WiFi", "Hot Water", "Heater", "Attached Bath", "Room Service"],
     images: [roomCardImg],
     badge: "Most Popular"
@@ -102,7 +105,7 @@ const ROOMS = [
   {
     id: 2, name: "Valley Retreat", type: "Standard", price: 2200,
     available: true, maxGuests: 2,
-    description: "Cozy, budget-friendly room overlooking the lush Mandakini valley. Perfect for couples seeking peace and warmth.",
+    description: "Cozy, budget-friendly room overlooking the lush Baluwakot valley. Perfect for couples seeking peace and warmth.",
     amenities: ["Valley View", "WiFi", "Hot Water", "Heater", "Attached Bath"],
     images: [imgStandard],
     badge: null
@@ -110,7 +113,7 @@ const ROOMS = [
   {
     id: 3, name: "Pilgrim's Nest", type: "Shared", price: 1400,
     available: true, maxGuests: 2,
-    description: "Simple, warm and comfortable shared accommodation. Ideal for Nashik pilgrims needing a clean restful stay before the yatra.",
+    description: "Simple, warm and comfortable shared accommodation. Ideal for Adi Kailash pilgrims needing a clean restful stay before the yatra.",
     amenities: ["WiFi", "Hot Water", "Heater", "Common Bath"],
     images: [imgShared],
     badge: "Best Value"
@@ -118,7 +121,7 @@ const ROOMS = [
   {
     id: 4, name: "Forest Cottage", type: "Super Deluxe", price: 4200,
     available: true, maxGuests: 4,
-    description: "Private wooden cottage nestled in deodar forest. Complete privacy with fireplace, sit-out and family capacity.",
+    description: "Private cottage nestled in the Himalayan surroundings. Complete privacy with fireplace, sit-out and family capacity.",
     amenities: ["Forest View", "WiFi", "Hot Water", "Fireplace", "Parking", "Kitchenette"],
     images: [imgSuperDelux],
     badge: "Private"
@@ -127,9 +130,9 @@ const ROOMS = [
 
 const TESTIMONIALS = [
   { name: "Prashant Chauhan", location: "Delhi", rating: 5, photo: reviewPrashant,
-    text: "Perfect base for the Nashik yatra. The Chaukhamba peak view from our room was unreal, and the home-cooked Garhwali food after a long trek felt like a blessing. Clean rooms, kind hosts — I can't wait to come back." },
+    text: "Perfect base for the Adi Kailash yatra. The Himalayan peak view from our room was unreal, and the home-cooked local food after a long trek felt like a blessing. Clean rooms, kind hosts — I can't wait to come back." },
   { name: "Mayur Patil", location: "Chandigarh", rating: 5, photo: reviewSahil,
-    text: "Hot water at 5am before the trek, honest advice on timings, and a bonfire with chai and mountain stories at night. Hackerfromhills takes care of everything so you only have to enjoy the yatra." },
+    text: "Hot water at 5am before the trek, honest advice on timings, and a bonfire with chai and mountain stories at night. Raikhola Homestay takes care of everything so you only have to enjoy the yatra." },
   { name: "Priya", location: "Dehradun", rating: 5, photo: reviewPriya,
     text: "I drove up from Dehradun with my parents for a quiet break and got so much more. We spent mornings on village walks and evenings around the bonfire, and the home-cooked food tasted just like a meal at my nani's place. None of us wanted to leave." },
   { name: "Sweta", location: "Lucknow", rating: 4, photo: reviewSweta,
@@ -137,13 +140,13 @@ const TESTIMONIALS = [
   { name: "Ammi", location: "USA", rating: 5, photo: reviewAmmi,
     text: "I came here for yoga and found real peace and nature here. Morning practice with the Himalayas in view, birdsong instead of traffic, and meals straight from the garden. I'm leaving calmer than I've ever been." },
   { name: "Juliana", location: "Goa", rating: 5, photo: reviewJuliana,
-    text: "I traded Goa's beaches for the Himalayas and I'd do it again tomorrow. What stays with me isn't just the Nashik darshan — it's the hot chai after long walks, dinner with the family, and sunsets over the valley. This place has a piece of my heart." },
+    text: "I traded Goa's beaches for the Himalayas and I'd do it again tomorrow. What stays with me isn't just the Adi Kailash darshan — it's the hot chai after long walks, dinner with the family, and sunsets over the valley. This place has a piece of my heart." },
 ];
 
 const GALLERY = [
-  { url: imgIce1,     cat: "Views",        label: "Hackerfromhills" },
+  { url: imgIce1,     cat: "Views",        label: "Raikhola Homestay" },
   { url: imgIce3,     cat: "Views",        label: "Mountain Vistas" },
-  { url: imgIce4,     cat: "Views",        label: "Chaukhamba View" },
+  { url: imgIce4,     cat: "Views",        label: "Himalayan Peak View" },
   { url: imgGuest1,   cat: "Guests",       label: "Happy Guests" },
   { url: imgGuest2,   cat: "Guests",       label: "Guest Moments" },
   { url: imgGuest3,   cat: "Guests",       label: "Memories at the Homestay" },
@@ -156,13 +159,13 @@ const GALLERY = [
 const ROOM_PHOTOS = [roomImg1, roomImg2, roomImg3, roomImg4, roomImg5, roomImg6, roomImg7, roomImg8, roomImg9, roomImgHero, roomImg10, roomImg11];
 
 const SERVICES = [
-  { Icon: UtensilsCrossed, title: "Home-Cooked Meals", desc: "Authentic Garhwali cuisine made with local ingredients. Breakfast, lunch & dinner available." },
-  { Icon: Helicopter, title: "Helipad Near: 4 km", desc: "Helipad just 4 km from the property — perfect for heli-yatra to Nashik and quick mountain transfers." },
+  { Icon: UtensilsCrossed, title: "Home-Cooked Meals", desc: "Authentic Kumaoni cuisine made with local ingredients. Breakfast, lunch & dinner available." },
+  { Icon: Helicopter, title: "Helipad Near: 4 km", desc: "Helipad just 4 km from the property — perfect for heli-yatra to Adi Kailash and quick mountain transfers." },
   { Icon: CarFront, title: "Pickup & Drop", desc: "We can arrange a cab for local visits and nearby sightseeing on request." },
   { Icon: FlameKindling, title: "Bonfire Evenings", desc: "Cozy evening bonfires under the stars with chai, local music and mountain stories." },
   { Icon: SquareParking, title: "Free Parking", desc: "Secure on-site parking for cars and bikes." },
   { Icon: Leaf, title: "Nature Walks", desc: "Guided morning walks through the village and to the local temple, with stories of mountain life." },
-  { Icon: Mountain, title: "Serene Chaukhamba Peak View", desc: "Wake up to a serene, unobstructed view of the Chaukhamba peak right from the property." },
+  { Icon: Mountain, title: "Serene Himalayan View", desc: "Wake up to a serene, unobstructed view of the Himalayan peaks right from the property." },
   { Icon: Flower2, title: "Nature & Serenity", desc: "Enjoy a peaceful stay surrounded by greenery, mountains, and the sounds of nature." },
 ];
 
@@ -255,8 +258,8 @@ const CSS = `
     box-shadow: 0 2px 20px rgba(0,0,0,0.2);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-logo-icon { font-size: 1.6rem; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #ffffff; border-radius: 50%; padding: 5px; box-shadow: 0 3px 10px rgba(0,0,0,0.35); flex-shrink: 0; }
-  .nav-logo-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .nav-logo-icon { font-size: 1.6rem; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #ffffff; border-radius: 50%; padding: 0; box-shadow: 0 3px 10px rgba(0,0,0,0.35); flex-shrink: 0; overflow: hidden; }
+  .nav-logo-img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
   .nav-logo-text { color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; line-height: 1.1; }
   .nav-logo-sub { font-size: 0.65rem; letter-spacing: 0.15em; font-family: 'DM Sans', sans-serif; font-weight: 300; opacity: 0.8; color:white; }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -1010,7 +1013,7 @@ const CSS = `
   .footer-inner { max-width: 1200px; margin: 0 auto; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 3rem; }
   .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: white; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
-  .footer-brand-img { width: 58px; height: 58px; object-fit: contain; background: #ffffff; border-radius: 50%; padding: 4px; box-shadow: 0 3px 12px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.9); flex-shrink: 0; }
+  .footer-brand-img { width: 58px; height: 58px; object-fit: cover; background: #ffffff; border-radius: 50%; padding: 0; box-shadow: 0 3px 12px rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.9); flex-shrink: 0; }
   .footer-brand-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
   .footer-col h4 { color: rgba(255,255,255,0.75); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
   .footer-col a { display: block; color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem; margin-bottom: 0.6rem; transition: color 0.2s; }
@@ -1313,11 +1316,11 @@ function Navbar() {
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <a href="#hero" className="nav-logo">
         <span className="nav-logo-icon">
-          <img src={logoImg} alt="Hackerfromhills logo" className="nav-logo-img" />
+          <img src={logoImg} alt="Raikhola Homestay logo" className="nav-logo-img" />
         </span>
         <div>
-          <div className="nav-logo-text">Hackerfromhills</div>
-          <div className="nav-logo-sub">Nashik, Maharashtra</div>
+          <div className="nav-logo-text">Raikhola Homestay</div>
+          <div className="nav-logo-sub">Baluwakot, Uttarakhand</div>
         </div>
       </a>
       <div className={`nav-links${open ? " open" : ""}`}>
@@ -1373,9 +1376,9 @@ function Hero() {
         ))}
       </div>
       <div className="hero-content">
-        <div className="hero-badge"><Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated Homestay in Nashik</div>
+        <div className="hero-badge"><Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated Homestay on Adi Kailash Route</div>
         <h1>Stay Where the<br /><span>Himalayas Begin</span></h1>
-        <p className="hero-tagline">Best stay for nature lovers & Nashik travelers · Nashik, Maharashtra</p>
+        <p className="hero-tagline">Best stay for nature lovers &amp; Adi Kailash travelers · Baluwakot, Uttarakhand</p>
         <div className="hero-stats">
           {[["500+", "Happy Guests"], ["6", "Unique Rooms"], ["5,905 ft", "Altitude"], ["4.9★", "Avg Rating"]].map(([n, l]) => (
             <div className="hero-stat" key={l}>
@@ -1531,12 +1534,12 @@ function RoomGalleryPage({ onClose }) {
         <button className="rg-back" aria-label="Back to site" onClick={requestClose}>
           <ChevronLeft size={16} strokeWidth={2.4} /> Back
         </button>
-        <span className="rg-brand">Hackerfromhills</span>
+        <span className="rg-brand">Raikhola Homestay</span>
       </div>
       <div className="rg-hero">
         <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Room Photos</span>
         <h2 className="rg-title">Inside Our Rooms</h2>
-        <p className="rg-sub">A closer look at the comfort waiting for you at Hackerfromhills.</p>
+        <p className="rg-sub">A closer look at the comfort waiting for you at Raikhola Homestay.</p>
       </div>
       <div className="rg-grid">
         {ROOM_PHOTOS.map((src, i) => (
@@ -1603,13 +1606,15 @@ function RoomCard({ room, onBook, posClass = "", onClick }) {
         <div className="room-amenities">
           {room.amenities.map(a => <span key={a} className="amenity-tag">{a}</span>)}
         </div>
-        <div className="room-footer">
-          <div className="room-price">
-            <div><span className="room-price-num">₹{room.price.toLocaleString()}</span><span className="room-price-per"> /night</span></div>
-            <div className="room-price-guests">Max {room.maxGuests} guests</div>
-          </div>
+        <div className="room-footer" style={{ display: "flex", justifyContent: "flex-end" }}>
           <button className="btn-primary room-book-btn"
-                  onClick={e => { e.stopPropagation(); if (room.available) window.open(WA_BOOKING_URL, "_blank", "noopener"); }}
+                  onClick={e => { 
+                    e.stopPropagation(); 
+                    if (room.available) {
+                      const msg = `Hello! I would like to book the ${room.name} (${room.type}). Please share the detailed price and availability.`;
+                      window.open(`https://wa.me/917500960261?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
+                    }
+                  }}
                   disabled={!room.available}>
             {room.available ? "Book Now" : "Not Available"}
           </button>
@@ -1911,7 +1916,7 @@ function Gallery() {
       <div className="gallery-inner reveal">
           <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Gallery</span>
           <h2 className="section-title">A Glimpse of Paradise</h2>
-          <p className="section-sub">Every corner of Hackerfromhills tells a story of mountains, warmth and wonder.</p>
+          <p className="section-sub">Every corner of Raikhola Homestay tells a story of mountains, warmth and wonder.</p>
         <div
           ref={sliderRef}
           className={`slider${dragging ? " is-dragging" : ""}`}
@@ -1955,56 +1960,17 @@ function Gallery() {
 // All property clips shown in the "See It Before You Visit" slider.
 // Room/valley view leads; posters are property photos so nothing loads until play.
 const TOUR_VIDEOS = [
-  { src: frontVideo,    label: "Valley View from Room",            poster: imgIce1 },
-  { src: homestayVideo, label: "Village and Chaukhamba Peak View", poster: secondThumbnail },
-  { src: videoInside,   label: "Inside the Homestay",              poster: roomImgHero },
-  { src: videoAround,   label: "Around the Homestay",              poster: fourthThumbnail },
+  { poster: raikholaPoster, label: "Raikhola Homestay Exterior" },
+  { poster: roomReal1,      label: "Deluxe Room" },
+  { poster: roomReal2,      label: "Standard Room" },
+  { poster: roomReal3,      label: "Shared Room" },
 ];
 
 function VideoSection() {
   const N = TOUR_VIDEOS.length;
   const [idx, setIdx] = useState(0);
-  const [playingIdx, setPlayingIdx] = useState(null);
-  const videoRefs = useRef([]);
   const go = i => setIdx(((i % N) + N) % N);
 
-  // Custom play overlay: some mobile browsers render no usable native
-  // control layer for slides inside the translated track, so playback must
-  // not depend on it. Our own button starts/stops the video instead.
-  const playVideo = i => {
-    const el = videoRefs.current[i];
-    if (!el) return;
-    videoRefs.current.forEach((v, j) => { if (v && j !== i) v.pause(); });
-    el.play().then(() => setPlayingIdx(i)).catch(() => {});
-  };
-
-  // Sliding away from a clip stops it — so only one video can play at a time
-  useEffect(() => {
-    videoRefs.current.forEach((v, i) => { if (v && i !== idx) v.pause(); });
-  }, [idx]);
-
-  // Chromium builds the native control layer the first time a clip gets laid
-  // out, and a slide that was still parked off-screen then keeps a bar shrunk
-  // to a stub on the left — the second clip's player looked nothing like the
-  // others. Rebuilding that layer once the clip has slid into place gives every
-  // slide the same full-width player. It takes two steps, because the layer is
-  // only rebuilt when the attribute is really gone for a frame.
-  const firstRun = useRef(true);
-  useEffect(() => {
-    if (firstRun.current) { firstRun.current = false; return; }  // clip on screen at load is already right
-    const el = videoRefs.current[idx];
-    if (!el) return;
-    let on;
-    const off = setTimeout(() => {
-      el.controls = false;
-      on = setTimeout(() => { el.controls = true; }, 50);
-    }, 600); // just past the 0.55s slide
-    return () => { clearTimeout(off); clearTimeout(on); };
-  }, [idx]);
-
-  // Swipe between clips. The hint chip is gone, the gesture stays: only a
-  // clearly horizontal flick counts, so vertical scrolling and taps on the
-  // native player are never mistaken for a slide change.
   const swipe = useRef(null);
   const onTouchStart = e => { swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
   const onTouchEnd = e => {
@@ -2019,33 +1985,23 @@ function VideoSection() {
 
   return (
     <div className="video-bg" id="video">
-      <div className="video-inner reveal">          <span className="section-label"><Film size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Experience</span>
+      <div className="video-inner reveal">          <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Gallery</span>
         <h2 className="section-title">See It Before You Visit</h2>
         <p className="section-sub">
-          Take a real tour of Hackerfromhills and the breathtaking 
-          surroundings of Nashik.
+          Take a real tour of Raikhola Homestay and the breathtaking 
+          surroundings of Baluwakot, Uttarakhand.
         </p>
         <div className="video-slider" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div className="video-track" style={{ left: `-${idx * 100}%` }}>
             {TOUR_VIDEOS.map((v, i) => (
-              <div className="video-slide" key={v.src}>
-                <video ref={el => (videoRefs.current[i] = el)}
-                       src={v.src} poster={v.poster} controls preload="metadata" playsInline
-                       onPlay={() => setPlayingIdx(i)}
-                       onPause={() => setPlayingIdx(p => (p === i ? null : p))}
-                       onEnded={() => setPlayingIdx(p => (p === i ? null : p))} />
-                {playingIdx !== i && (
-                  <button className="video-playbtn" onClick={() => playVideo(i)}
-                          aria-label={`Play ${v.label}`}>
-                    <Play size={30} strokeWidth={2} />
-                  </button>
-                )}
+              <div className="video-slide" key={v.label}>
+                <img src={v.poster} alt={v.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                 <span className="video-tag">{v.label}</span>
               </div>
             ))}
           </div>
-          <button className="slider-arrow slider-prev" onClick={() => go(idx - 1)} aria-label="Previous video">‹</button>
-          <button className="slider-arrow slider-next" onClick={() => go(idx + 1)} aria-label="Next video">›</button>
+          <button className="slider-arrow slider-prev" onClick={() => go(idx - 1)} aria-label="Previous slide">‹</button>
+          <button className="slider-arrow slider-next" onClick={() => go(idx + 1)} aria-label="Next slide">›</button>
           <div className="video-count">{idx + 1} / {N}</div>
         </div>
       </div>
@@ -2080,10 +2036,10 @@ function About() {
       <div className="about-grid reveal">
         <div className="about-img-stack">
           <div className="about-img-main">
-            <img src={imgIce4} alt="Chaukhamba view from Hackerfromhills" />
+            <img src={imgIce4} alt="Mountain view from Raikhola Homestay" />
           </div>
           <div className="about-img-accent">
-            <img src={imgIce1} alt="View of Hackerfromhills" />
+            <img src={imgIce1} alt="View of Raikhola Homestay" />
           </div>
           <div className="about-card">
             <div className="about-card-num">5+</div>
@@ -2093,10 +2049,10 @@ function About() {
         <div className="about-text">
           <span className="section-label"><HomeIcon size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Our Story</span>
           <h2 className="section-title">Born from a Love of Mountains</h2>
-          <p>Hackerfromhills began as a dream of Ram Prasad Negi — a local Garhwali who wanted to share the magic of his homeland with the world. What started as two rooms in a family home has grown into a beloved boutique homestay.</p>
-          <p>Perched at 5,905 feet above sea level in the sacred town of Nashik, we're ideally placed on the route to Nashik Dham — one of the holiest shrines in India. Our guests aren't just visitors; they become part of our mountain family.</p>
+          <p>Raikhola Homestay began as a dream of a local Kumaoni family who wanted to share the magic of their homeland with the world. What started as a few rooms in a family home has grown into a beloved boutique homestay.</p>
+          <p>Nestled in the scenic village of Baluwakot, Dharchula, Uttarakhand, we're ideally placed on the route to Adi Kailash — one of the most sacred Himalayan shrines. Our guests aren't just visitors; they become part of our mountain family.</p>
           <div className="highlights">
-            {["28 km from Sonprayag", "On NH-107 Highway", "Mandakini Riverside"].map(h => (
+            {["On Adi Kailash Route", "Dharchula – Baluwakot Road", "Mountain River Views"].map(h => (
               <span key={h} className="highlight"><MapPin size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "4px" }} />{h}</span>
             ))}
           </div>
@@ -2125,20 +2081,20 @@ function About() {
 function WhyStay() {
   const reasons = [
     {
-      icon: "🏔️", title: "Himalayan Views", desc: "Wake up to snow-capped Nashik peaks right from your window.",
-      img: whyHimalayanImg, caption: "Nashik peaks, from your bed"
+      icon: "🏔️", title: "Himalayan Views", desc: "Wake up to snow-capped Himalayan peaks right from your window.",
+      img: whyHimalayanImg, caption: "Himalayan peaks, from your bed"
     },
     {
       icon: "🛏️", title: "Comfortable Rooms", desc: "Cozy, heated rooms with premium bedding and 24×7 hot water.",
       img: roomCardImg, caption: "Warm, cozy & spotless"
     },
     {
-      icon: "🍛", title: "Maharashtra Cuisine", desc: "Authentic home-cooked Garhwali meals from our organic garden.",
-      img: foodImg, caption: "Fresh Garhwali thali"
+      icon: "🍛", title: "Kumaoni Cuisine", desc: "Authentic home-cooked Kumaoni meals from our organic garden.",
+      img: foodImg, caption: "Fresh local thali"
     },
     {
-      icon: "📍", title: "Near Nashik", desc: "Perfect base on the yatra route — just 28 km from Sonprayag.",
-      img: kedarImg, caption: "28 km from Sonprayag"
+      icon: "📍", title: "Near Adi Kailash", desc: "Perfect base on the Adi Kailash yatra route — Dharchula–Baluwakot road.",
+      img: kedarImg, caption: "On the Adi Kailash Route"
     },
     {
       icon: "❤️", title: "Peaceful Environment", desc: "Village trails, fresh mountain air, bird chirping and warm locals — pure mountain calm.",
@@ -2150,7 +2106,7 @@ function WhyStay() {
     <section className="section" id="why">
       <span className="section-label"><Heart size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Why Stay With Us</span>
       <h2 className="section-title">Why Stay With Us?</h2>
-      <p className="section-sub">Five reasons travelers choose Hackerfromhills — and keep coming back.</p>
+      <p className="section-sub">Five reasons travelers choose Raikhola Homestay — and keep coming back.</p>
       <div className="why-grid reveal">
         {reasons.map(({ icon, title, desc, img, caption }) => (
           <div key={title} className="why-card" tabIndex={0}>
@@ -2372,11 +2328,11 @@ function Contact() {
         <div className="contact-info">
           <h3>Reach Us Directly</h3>
           {[
-            [MapPin, "Address", "Hackerfromhills, Village Dewar, Nashik, Rudraprayag, Maharashtra – 246439"],
-            [Phone, "Phone", "+91 9764559889 · +91 9764559889"],
-            [Mail, "Email", "Hackerfromhillsicehills77@gmail.com"],
+            [MapPin, "Address", "Raikhola Homestay, Baluwakot, Dharchula, Uttarakhand – Adi Kailash Route"],
+            [Phone, "Phone", "+91 75009 60261"],
+            [Mail, "Email", "raikholahomestay@gmail.com"],
             [Clock, "Check-in / Check-out", "Check-in: 12:00 PM · Check-out: 11:00 AM"],
-            [Mountain, "Altitude", "5,905 feet above sea level"],
+            [Mountain, "Altitude", "On the Adi Kailash Himalayan Route"],
           ].map(([Icon, title, val]) => (
             <div key={title} className="contact-item">
               <div className="contact-icon"><Icon size={20} strokeWidth={1.8} /></div>
@@ -2514,9 +2470,9 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
         <div className="footer-grid">
           <div>
             <div className="footer-brand-name">
-              <img src={logoImg} alt="Hackerfromhills logo" className="footer-brand-img" /> Hackerfromhills
+              <img src={logoImg} alt="Raikhola Homestay logo" className="footer-brand-img" /> Raikhola Homestay
             </div>
-            <p className="footer-brand-desc">A boutique mountain homestay in Nashik, Maharashtra. The perfect base for Nashik pilgrims and Himalayan adventurers.</p>
+            <p className="footer-brand-desc">A boutique mountain homestay in Baluwakot, Uttarakhand. The perfect base for Adi Kailash pilgrims and Himalayan adventurers.</p>
             {/* Placeholder handles — swap in the real profile URLs when ready */}
             <div className="footer-social">
               <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon size={18} /></a>
@@ -2541,9 +2497,8 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
           </div>
           <div className="footer-col footer-col-contact">
             <h4>Contact</h4>
-            <a href="tel:+919764559889"><Phone size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />+91 9764559889</a>
-            <a href="tel:+919764559889"><Phone size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />+91 9764559889</a>
-            <a href="mailto:Hackerfromhillsicehills77@gmail.com"><Mail size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Email Us</a>
+            <a href="tel:+917500960261"><Phone size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />+91 75009 60261</a>
+            <a href="mailto:raikholahomestay@gmail.com"><Mail size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Email Us</a>
             <a href={WA_BOOKING_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />WhatsApp</a>
             <div className="footer-book-row" ref={bookRowRef}>
               <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"><MapPin size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Directions</a>
@@ -2552,10 +2507,10 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
         </div>
         <div className="footer-bottom">
           <div>
-            <div className="footer-copy">&copy; 2026 Hackerfromhills. All Rights Reserved.</div>
+            <div className="footer-copy">&copy; 2026 Raikhola Homestay. All Rights Reserved.</div>
             
           </div>
-          <div className="footer-love">Made with <Heart size={12} strokeWidth={2.2} color="#e05656" style={{ verticalAlign: "-1px", margin: "0 2px" }} /> by Team Hackerfromhills</div>
+          <div className="footer-love">Made with <Heart size={12} strokeWidth={2.2} color="#e05656" style={{ verticalAlign: "-1px", margin: "0 2px" }} /> by <a href="https://linktr.ee/hackerfromhills" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Team Hackerfromhills</a></div>
           <button ref={toTopRef} type="button" className="to-top" onClick={scrollToTop} aria-label="Back to top" title="Back to top">
             <ArrowUp size={17} strokeWidth={2.6} />
           </button>
@@ -2610,12 +2565,12 @@ function PolicyPage({ section, onClose }) {
         <button className="rg-back" aria-label="Back to site" onClick={requestClose}>
           <ChevronLeft size={16} strokeWidth={2.4} /> Back
         </button>
-        <span className="rg-brand">Hackerfromhills</span>
+        <span className="rg-brand">Raikhola Homestay</span>
       </div>
       <div className="pol-hero">
         <span className="section-label"><ScrollText size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Hotel Policies</span>
-        <h2 className="rg-title">Policies & House Rules</h2>
-        <p className="rg-sub">At Hackerfromhills, we aim to provide a comfortable and hassle-free stay. Please review our policies before booking.</p>
+        <h2 className="rg-title">Policies &amp; House Rules</h2>
+        <p className="rg-sub">At Raikhola Homestay, we aim to provide a comfortable and hassle-free stay. Please review our policies before booking.</p>
       </div>
       <div className="pol-grid">
         {POLICY_SECTIONS.map(({ id, Icon, title, items }) => (
@@ -2636,8 +2591,8 @@ function PolicyPage({ section, onClose }) {
         <h3>Questions? We're here to help.</h3>
         <p>For any queries or special requests, feel free to contact us anytime.</p>
         <div className="pol-contact-btns">
-          <a className="btn-primary" href="tel:+919764559889">📞 +91 9764559889</a>
-          <a className="btn-outline" href="https://wa.me/919764559889?text=Hello!%20I%20have%20a%20question%20about%20your%20policies." target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+          <a className="btn-primary" href="tel:+917500960261">📞 +91 75009 60261</a>
+          <a className="btn-outline" href="https://wa.me/917500960261?text=Hello!%20I%20have%20a%20question%20about%20your%20policies." target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
         </div>
       </div>
     </div>
