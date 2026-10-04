@@ -2076,10 +2076,10 @@ function About() {
                 zIndex: -1
               }}></div>
             </div>
-            <img src={ownerImg} alt="Tikendra Singh Raikhola" />
+            <img src={roomImgHero} alt="Comfortable Room" />
           </div>
           <div className="about-img-accent">
-            <img src={imgIce1} alt="View of Raikhola Homestay" />
+            <img src={ownerImg} alt="Tikendra Singh Raikhola" />
           </div>
           <div className="about-card">
             <div className="about-card-num">5+</div>
@@ -2831,6 +2831,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
