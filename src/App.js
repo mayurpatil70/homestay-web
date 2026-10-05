@@ -3492,7 +3492,7 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
               />
               +91 75009 60261
             </a>
-            <a href="mailto:raikholahomestay@gmail.com">
+            <a href="mailto:tikendrasingh103@gmail.com">
               <Mail
                 size={13}
                 strokeWidth={2.2}
