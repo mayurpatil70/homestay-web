@@ -1,5 +1,51 @@
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
-import { BedDouble, Camera, Sparkles, Home as HomeIcon, MessageSquare, Mountain, MountainSnow, ShieldCheck, Recycle, MapPin, Phone, Mail, Clock, MessageCircle, Lock, CheckCircle2, Send, CalendarDays, Star, Handshake, UtensilsCrossed, Helicopter, CarFront, FlameKindling, SquareParking, Leaf, Flower2, Heart, ChevronLeft, ChevronRight, Users, ScrollText, CalendarX, Baby, PawPrint, Wrench, Ban, AlertTriangle, ArrowUp } from "lucide-react";
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+} from "react";
+import {
+  BedDouble,
+  Camera,
+  Sparkles,
+  Home as HomeIcon,
+  MessageSquare,
+  Mountain,
+  MountainSnow,
+  ShieldCheck,
+  Recycle,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  MessageCircle,
+  Lock,
+  CheckCircle2,
+  Send,
+  CalendarDays,
+  Star,
+  Handshake,
+  UtensilsCrossed,
+  Helicopter,
+  CarFront,
+  FlameKindling,
+  SquareParking,
+  Leaf,
+  Flower2,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  ScrollText,
+  CalendarX,
+  Baby,
+  PawPrint,
+  Wrench,
+  Ban,
+  AlertTriangle,
+  ArrowUp,
+} from "lucide-react";
 import raikholaLogo from "./assets/images/raikhola-logo.jpg";
 import raikholaPoster from "./assets/images/raikhola-poster.jpg";
 import roomReal1 from "./assets/images/room-real1.jpg";
@@ -58,9 +104,9 @@ const imgShared = roomReal2;
 // const reviewSahil = guestEating;
 // const reviewSweta = roomReal1;
 // ─── EMAILJS CONFIG ───────────────────────────────────────────────────────────
-const EMAILJS_SERVICE_ID       = "service_e4gi90r";          
-const EMAILJS_PUBLIC_KEY       = "cqWBlZliX0aLNQQDB";        
-const EMAILJS_BOOKING_TEMPLATE = "template_r4zfcvr"; 
+const EMAILJS_SERVICE_ID = "service_e4gi90r";
+const EMAILJS_PUBLIC_KEY = "cqWBlZliX0aLNQQDB";
+const EMAILJS_BOOKING_TEMPLATE = "template_r4zfcvr";
 
 // ─── WHATSAPP BOOKING ───────────────────────────────────────────────────────
 const WA_NUMBER = "917500960261";
@@ -72,7 +118,7 @@ const WA_BOOKING_MESSAGE = [
   "📅 Check-out: ",
   "👥 Guests: ",
   "",
-  "Please share availability and best rates. Thank you!"
+  "Please share availability and best rates. Thank you!",
 ].join("\n");
 const WA_BOOKING_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_BOOKING_MESSAGE)}`;
 
@@ -88,9 +134,9 @@ async function sendEmail(templateId, templateParams) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      service_id:  EMAILJS_SERVICE_ID,
+      service_id: EMAILJS_SERVICE_ID,
       template_id: templateId,
-      user_id:     EMAILJS_PUBLIC_KEY,
+      user_id: EMAILJS_PUBLIC_KEY,
       template_params: templateParams,
     }),
   });
@@ -100,85 +146,204 @@ async function sendEmail(templateId, templateParams) {
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const ROOMS = [
   {
-    id: 1, name: "Himalayan Suite", type: "Deluxe", price: 3500,
-    available: true, maxGuests: 3,
-    description: "Wake up to breathtaking Himalayan peaks. Spacious suite with panoramic mountain views, premium bedding, and a private sit-out.",
-    amenities: ["Mountain View", "WiFi", "Hot Water", "Heater", "Attached Bath", "Room Service"],
+    id: 1,
+    name: "Himalayan Suite",
+    type: "Deluxe",
+    price: 3500,
+    available: true,
+    maxGuests: 3,
+    description:
+      "Wake up to breathtaking Himalayan peaks. Spacious suite with panoramic mountain views, premium bedding, and a private sit-out.",
+    amenities: [
+      "Mountain View",
+      "WiFi",
+      "Hot Water",
+      "Heater",
+      "Attached Bath",
+      "Room Service",
+    ],
     images: [roomCardImg],
-    badge: "Most Popular"
+    badge: "Most Popular",
   },
   {
-    id: 2, name: "Valley Retreat", type: "Standard", price: 2200,
-    available: true, maxGuests: 2,
-    description: "Cozy, budget-friendly room overlooking the lush Baluwakot valley. Perfect for couples seeking peace and warmth.",
+    id: 2,
+    name: "Valley Retreat",
+    type: "Standard",
+    price: 2200,
+    available: true,
+    maxGuests: 2,
+    description:
+      "Cozy, budget-friendly room overlooking the lush Baluwakot valley. Perfect for couples seeking peace and warmth.",
     amenities: ["Valley View", "WiFi", "Hot Water", "Heater", "Attached Bath"],
     images: [imgStandard],
-    badge: null
+    badge: null,
   },
   {
-    id: 3, name: "Pilgrim's Nest", type: "Shared", price: 1400,
-    available: true, maxGuests: 2,
-    description: "Simple, warm and comfortable shared accommodation. Ideal for Adi Kailash pilgrims needing a clean restful stay before the yatra.",
+    id: 3,
+    name: "Pilgrim's Nest",
+    type: "Shared",
+    price: 1400,
+    available: true,
+    maxGuests: 2,
+    description:
+      "Simple, warm and comfortable shared accommodation. Ideal for Adi Kailash pilgrims needing a clean restful stay before the yatra.",
     amenities: ["WiFi", "Hot Water", "Heater", "Common Bath"],
     images: [imgShared],
-    badge: "Best Value"
+    badge: "Best Value",
   },
   {
-    id: 4, name: "Forest Cottage", type: "Super Deluxe", price: 4200,
-    available: true, maxGuests: 4,
-    description: "Private cottage nestled in the Himalayan surroundings. Complete privacy with fireplace, sit-out and family capacity.",
-    amenities: ["Forest View", "WiFi", "Hot Water", "Fireplace", "Parking", "Kitchenette"],
+    id: 4,
+    name: "Forest Cottage",
+    type: "Super Deluxe",
+    price: 4200,
+    available: true,
+    maxGuests: 4,
+    description:
+      "Private cottage nestled in the Himalayan surroundings. Complete privacy with fireplace, sit-out and family capacity.",
+    amenities: [
+      "Forest View",
+      "WiFi",
+      "Hot Water",
+      "Fireplace",
+      "Parking",
+      "Kitchenette",
+    ],
     images: [imgSuperDelux],
-    badge: "Private"
-  }
+    badge: "Private",
+  },
 ];
 
 const TESTIMONIALS = [
-  { name: "Prashant Chauhan", location: "Delhi", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Prashant",
-    text: "Perfect base for the Adi Kailash yatra. The Himalayan peak view from our room was unreal, and the home-cooked local food after a long trek felt like a blessing. Clean rooms, kind hosts — I can't wait to come back." },
-  { name: "Mayur Patil", location: "Chandigarh", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Mayur",
-    text: "Hot water at 5am before the trek, honest advice on timings, and a bonfire with chai and mountain stories at night. Raikhola Homestay takes care of everything so you only have to enjoy the yatra." },
-  { name: "Priya", location: "Dehradun", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Priya",
-    text: "I drove up from Dehradun with my parents for a quiet break and got so much more. We spent mornings on village walks and evenings around the bonfire, and the home-cooked food tasted just like a meal at my nani's place. None of us wanted to leave." },
-  { name: "Sweta", location: "Lucknow", rating: 4, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Sweta",
-    text: "Traveling solo from Lucknow, I was nervous about staying in a homestay — within a day, the family had me feeling like one of their own. They arranged my cab and helped plan every little detail. The network in my room was patchy, but honestly? It gave me the digital detox I didn't know I needed." },
-  { name: "Ammi", location: "USA", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Ammi",
-    text: "I came here for yoga and found real peace and nature here. Morning practice with the Himalayas in view, birdsong instead of traffic, and meals straight from the garden. I'm leaving calmer than I've ever been." },
-  { name: "Juliana", location: "Goa", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Juliana",
-    text: "I traded Goa's beaches for the Himalayas and I'd do it again tomorrow. What stays with me isn't just the Adi Kailash darshan — it's the hot chai after long walks, dinner with the family, and sunsets over the valley. This place has a piece of my heart." },
-  { name: "Rahul Sharma", location: "Noida", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Rahul",
-    text: "यहाँ का अनुभव बहुत ही शानदार रहा। परिवार जैसा माहौल, साफ-सुथरे कमरे और घर का बना स्वादिष्ट खाना। पहाड़ों का नज़ारा मन मोह लेने वाला है। मैं फिर से आना चाहूँगा।" },
-  { name: "Anita Joshi", location: "Almora", rating: 5, photo: "https://api.dicebear.com/9.x/micah/svg?seed=Anita",
-    text: "रैखोला होमस्टे में रुकना एक बेहतरीन अनुभव था। यहाँ के मेज़बान बहुत ही मिलनसार हैं। रात को बोनफायर के साथ उनकी कहानियाँ सुनना बहुत अच्छा लगा। आदि कैलाश यात्रा के लिए एकदम सही जगह है।" }
+  {
+    name: "Prashant Chauhan",
+    location: "Delhi",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Prashant",
+    text: "Perfect base for the Adi Kailash yatra. The Himalayan peak view from our room was unreal, and the home-cooked local food after a long trek felt like a blessing. Clean rooms, kind hosts — I can't wait to come back.",
+  },
+  {
+    name: "Mayur Patil",
+    location: "Chandigarh",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Mayur",
+    text: "Hot water at 5am before the trek, honest advice on timings, and a bonfire with chai and mountain stories at night. Raikhola Homestay takes care of everything so you only have to enjoy the yatra.",
+  },
+  {
+    name: "Priya",
+    location: "Dehradun",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Priya",
+    text: "I drove up from Dehradun with my parents for a quiet break and got so much more. We spent mornings on village walks and evenings around the bonfire, and the home-cooked food tasted just like a meal at my nani's place. None of us wanted to leave.",
+  },
+  {
+    name: "Sweta",
+    location: "Lucknow",
+    rating: 4,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Sweta",
+    text: "Traveling solo from Lucknow, I was nervous about staying in a homestay — within a day, the family had me feeling like one of their own. They arranged my cab and helped plan every little detail. The network in my room was patchy, but honestly? It gave me the digital detox I didn't know I needed.",
+  },
+  {
+    name: "Ammi",
+    location: "USA",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Ammi",
+    text: "I came here for yoga and found real peace and nature here. Morning practice with the Himalayas in view, birdsong instead of traffic, and meals straight from the garden. I'm leaving calmer than I've ever been.",
+  },
+  {
+    name: "Juliana",
+    location: "Goa",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Juliana",
+    text: "I traded Goa's beaches for the Himalayas and I'd do it again tomorrow. What stays with me isn't just the Adi Kailash darshan — it's the hot chai after long walks, dinner with the family, and sunsets over the valley. This place has a piece of my heart.",
+  },
+  {
+    name: "Rahul Sharma",
+    location: "Noida",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Rahul",
+    text: "यहाँ का अनुभव बहुत ही शानदार रहा। परिवार जैसा माहौल, साफ-सुथरे कमरे और घर का बना स्वादिष्ट खाना। पहाड़ों का नज़ारा मन मोह लेने वाला है। मैं फिर से आना चाहूँगा।",
+  },
+  {
+    name: "Anita Joshi",
+    location: "Almora",
+    rating: 5,
+    photo: "https://api.dicebear.com/9.x/micah/svg?seed=Anita",
+    text: "रैखोला होमस्टे में रुकना एक बेहतरीन अनुभव था। यहाँ के मेज़बान बहुत ही मिलनसार हैं। रात को बोनफायर के साथ उनकी कहानियाँ सुनना बहुत अच्छा लगा। आदि कैलाश यात्रा के लिए एकदम सही जगह है।",
+  },
 ];
 
 const GALLERY = [
-  { url: glimpse1,    cat: "Views",        label: "Cozy Room" },
-  { url: glimpse2,    cat: "Views",        label: "Comfortable Stay" },
-  { url: glimpse3,    cat: "Views",        label: "Homestay Entrance" },
-  { url: imgIce1,     cat: "Views",        label: "Raikhola Homestay" },
-  { url: imgIce3,     cat: "Views",        label: "Mountain Vistas" },
-  { url: imgIce4,     cat: "Views",        label: "Himalayan Peak View" },
-  { url: imgGuest1,   cat: "Guests",       label: "Happy Guests" },
-  { url: imgGuest2,   cat: "Guests",       label: "Guest Moments" },
-  { url: imgGuest3,   cat: "Guests",       label: "Memories at the Homestay" },
-  { url: imgGuest4,   cat: "Guests",       label: "Our Visitors" },
-  { url: imgAround1,  cat: "Surroundings", label: "Village and Peak View" },
-  { url: imgAround2,  cat: "Surroundings", label: "Nearby Trails" },
+  { url: glimpse1, cat: "Views", label: "Cozy Room" },
+  { url: glimpse2, cat: "Views", label: "Comfortable Stay" },
+  { url: glimpse3, cat: "Views", label: "Homestay Entrance" },
+  { url: imgIce1, cat: "Views", label: "Raikhola Homestay" },
+  { url: imgIce3, cat: "Views", label: "Mountain Vistas" },
+  { url: imgIce4, cat: "Views", label: "Himalayan Peak View" },
+  { url: imgGuest1, cat: "Guests", label: "Happy Guests" },
+  { url: imgGuest2, cat: "Guests", label: "Guest Moments" },
+  { url: imgGuest3, cat: "Guests", label: "Memories at the Homestay" },
+  { url: imgGuest4, cat: "Guests", label: "Our Visitors" },
+  { url: imgAround1, cat: "Surroundings", label: "Village and Peak View" },
+  { url: imgAround2, cat: "Surroundings", label: "Nearby Trails" },
 ];
 
 // All room photos shown on the "See More Images" page
-const ROOM_PHOTOS = [roomImg1, roomImg2, roomImg3, roomImg4, roomImg5, roomImg6, roomImg7, roomImg8, roomImg9, roomImgHero, roomImg10, roomImg11];
+const ROOM_PHOTOS = [
+  roomImg1,
+  roomImg2,
+  roomImg3,
+  roomImg4,
+  roomImg5,
+  roomImg6,
+  roomImg7,
+  roomImg8,
+  roomImg9,
+  roomImgHero,
+  roomImg10,
+  roomImg11,
+];
 
 const SERVICES = [
-  { Icon: UtensilsCrossed, title: "Home-Cooked Meals", desc: "Authentic Kumaoni cuisine made with local ingredients. Breakfast, lunch & dinner available." },
-  { Icon: Helicopter, title: "Helipad Near: 4 km", desc: "Helipad just 4 km from the property — perfect for heli-yatra to Adi Kailash and quick mountain transfers." },
-  { Icon: CarFront, title: "Pickup & Drop", desc: "We can arrange a cab for local visits and nearby sightseeing on request." },
-  { Icon: FlameKindling, title: "Bonfire Evenings", desc: "Cozy evening bonfires under the stars with chai, local music and mountain stories." },
-  { Icon: SquareParking, title: "Free Parking", desc: "Secure on-site parking for cars and bikes." },
-  { Icon: Leaf, title: "Nature Walks", desc: "Guided morning walks through the village and to the local temple, with stories of mountain life." },
-  { Icon: Mountain, title: "Serene Himalayan View", desc: "Wake up to a serene, unobstructed view of the Himalayan peaks right from the property." },
-  { Icon: Flower2, title: "Nature & Serenity", desc: "Enjoy a peaceful stay surrounded by greenery, mountains, and the sounds of nature." },
+  {
+    Icon: UtensilsCrossed,
+    title: "Home-Cooked Meals",
+    desc: "Authentic Kumaoni cuisine made with local ingredients. Breakfast, lunch & dinner available.",
+  },
+  {
+    Icon: Helicopter,
+    title: "Helipad Near: 4 km",
+    desc: "Helipad just 4 km from the property — perfect for heli-yatra to Adi Kailash and quick mountain transfers.",
+  },
+  {
+    Icon: CarFront,
+    title: "Pickup & Drop",
+    desc: "We can arrange a cab for local visits and nearby sightseeing on request.",
+  },
+  {
+    Icon: FlameKindling,
+    title: "Bonfire Evenings",
+    desc: "Cozy evening bonfires under the stars with chai, local music and mountain stories.",
+  },
+  {
+    Icon: SquareParking,
+    title: "Free Parking",
+    desc: "Secure on-site parking for cars and bikes.",
+  },
+  {
+    Icon: Leaf,
+    title: "Nature Walks",
+    desc: "Guided morning walks through the village and to the local temple, with stories of mountain life.",
+  },
+  {
+    Icon: Mountain,
+    title: "Serene Himalayan View",
+    desc: "Wake up to a serene, unobstructed view of the Himalayan peaks right from the property.",
+  },
+  {
+    Icon: Flower2,
+    title: "Nature & Serenity",
+    desc: "Enjoy a peaceful stay surrounded by greenery, mountains, and the sounds of nature.",
+  },
 ];
 
 // ─── STYLES ─────────────────────────────────────────────────────────────────
@@ -1241,53 +1406,103 @@ const CSS = `
 
 // ─── HOTEL POLICIES (footer → policy page) ───────────────────────────────
 const POLICY_SECTIONS = [
-  { id: "checkin", Icon: Clock, title: "Check-in / Check-out", items: [
-    "Check-in time: 12:00 PM",
-    "Check-out time: 10:00 AM",
-    "Early check-in and late check-out are subject to availability.",
-  ]},
-  { id: "booking", Icon: ScrollText, title: "Booking & Payment", items: [
-    "Advance booking is recommended.",
-    "A partial or full payment may be required to confirm your reservation.",
-    "Accepted payment modes: Cash, UPI, and bank transfer.",
-  ]},
-  { id: "cancellation", Icon: CalendarX, title: "Cancellation Policy", items: [
-    "Free cancellation up to 5 days before check-in.",
-    "Cancellations within 5 days may be subject to charges.",
-    "No-show bookings are non-refundable.",
-  ]},
-  { id: "guests", Icon: Users, title: "Guest & Visitor Policy", items: [
-    "Valid ID proof required at check-in.",
-    "Only registered guests are allowed to stay.",
-    "Outside visitors require prior permission.",
-    "Guests must maintain peaceful surroundings.",
-  ]},
-  { id: "children", Icon: Baby, title: "Child Policy", items: [
-    "Children below 5 years can stay free (without extra bedding).",
-    "Extra charges may apply for additional bedding.",
-  ]},
-  { id: "pets", Icon: PawPrint, title: "Pet Policy", items: [
-    "Pets are allowed only with prior approval.",
-    "Guests are responsible for their pet's behavior and cleanliness.",
-  ]},
-  { id: "damage", Icon: Wrench, title: "Damage Policy", items: [
-    "Any property damage will be charged to the guest.",
-    "Please inform staff immediately in case of any issues.",
-  ]},
-  { id: "rules", Icon: Ban, title: "House Rules", items: [
-    "Smoking is allowed only in designated areas.",
-    "Loud music and parties are not permitted.",
-    "Outside visitors are not allowed in rooms without permission.",
-  ]},
-  { id: "vacation", Icon: HomeIcon, title: "Vacation Home Usage", items: [
-    "The entire property (if booked) is for registered guests only.",
-    "Parties, loud music, or events are not allowed without approval.",
-    "Guests are expected to maintain the cleanliness and care of the space.",
-  ]},
-  { id: "safety", Icon: AlertTriangle, title: "Safety & Liability", items: [
-    "Guests are responsible for their personal belongings.",
-    "The property is not liable for any loss, theft, or unforeseen events.",
-  ]},
+  {
+    id: "checkin",
+    Icon: Clock,
+    title: "Check-in / Check-out",
+    items: [
+      "Check-in time: 12:00 PM",
+      "Check-out time: 10:00 AM",
+      "Early check-in and late check-out are subject to availability.",
+    ],
+  },
+  {
+    id: "booking",
+    Icon: ScrollText,
+    title: "Booking & Payment",
+    items: [
+      "Advance booking is recommended.",
+      "A partial or full payment may be required to confirm your reservation.",
+      "Accepted payment modes: Cash, UPI, and bank transfer.",
+    ],
+  },
+  {
+    id: "cancellation",
+    Icon: CalendarX,
+    title: "Cancellation Policy",
+    items: [
+      "Free cancellation up to 5 days before check-in.",
+      "Cancellations within 5 days may be subject to charges.",
+      "No-show bookings are non-refundable.",
+    ],
+  },
+  {
+    id: "guests",
+    Icon: Users,
+    title: "Guest & Visitor Policy",
+    items: [
+      "Valid ID proof required at check-in.",
+      "Only registered guests are allowed to stay.",
+      "Outside visitors require prior permission.",
+      "Guests must maintain peaceful surroundings.",
+    ],
+  },
+  {
+    id: "children",
+    Icon: Baby,
+    title: "Child Policy",
+    items: [
+      "Children below 5 years can stay free (without extra bedding).",
+      "Extra charges may apply for additional bedding.",
+    ],
+  },
+  {
+    id: "pets",
+    Icon: PawPrint,
+    title: "Pet Policy",
+    items: [
+      "Pets are allowed only with prior approval.",
+      "Guests are responsible for their pet's behavior and cleanliness.",
+    ],
+  },
+  {
+    id: "damage",
+    Icon: Wrench,
+    title: "Damage Policy",
+    items: [
+      "Any property damage will be charged to the guest.",
+      "Please inform staff immediately in case of any issues.",
+    ],
+  },
+  {
+    id: "rules",
+    Icon: Ban,
+    title: "House Rules",
+    items: [
+      "Smoking is allowed only in designated areas.",
+      "Loud music and parties are not permitted.",
+      "Outside visitors are not allowed in rooms without permission.",
+    ],
+  },
+  {
+    id: "vacation",
+    Icon: HomeIcon,
+    title: "Vacation Home Usage",
+    items: [
+      "The entire property (if booked) is for registered guests only.",
+      "Parties, loud music, or events are not allowed without approval.",
+      "Guests are expected to maintain the cleanliness and care of the space.",
+    ],
+  },
+  {
+    id: "safety",
+    Icon: AlertTriangle,
+    title: "Safety & Liability",
+    items: [
+      "Guests are responsible for their personal belongings.",
+      "The property is not liable for any loss, theft, or unforeseen events.",
+    ],
+  },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1310,7 +1525,9 @@ function Navbar() {
       solid = next;
       setScrolled(next);
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(read); };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(read);
+    };
     read();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -1320,15 +1537,22 @@ function Navbar() {
   }, []);
 
   const links = [
-    ["#rooms", "Rooms"], ["#gallery", "Gallery"], ["#services", "Services"],
-    ["#about", "About"], ["#contact", "Contact"]
+    ["#rooms", "Rooms"],
+    ["#gallery", "Gallery"],
+    ["#services", "Services"],
+    ["#about", "About"],
+    ["#contact", "Contact"],
   ];
 
   return (
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <a href="#hero" className="nav-logo">
         <span className="nav-logo-icon">
-          <img src={logoImg} alt="Raikhola Homestay logo" className="nav-logo-img" />
+          <img
+            src={logoImg}
+            alt="Raikhola Homestay logo"
+            className="nav-logo-img"
+          />
         </span>
         <div>
           <div className="nav-logo-text">Raikhola Homestay</div>
@@ -1337,11 +1561,21 @@ function Navbar() {
       </a>
       <div className={`nav-links${open ? " open" : ""}`}>
         {links.map(([href, label]) => (
-          <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>
+          <a key={href} href={href} onClick={() => setOpen(false)}>
+            {label}
+          </a>
         ))}
-        <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="nav-cta" onClick={() => setOpen(false)}>Directions</a>
+        <a
+          href={MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="nav-cta"
+          onClick={() => setOpen(false)}
+        >
+          Directions
+        </a>
       </div>
-      <button className="nav-hamburger" onClick={() => setOpen(o => !o)}>
+      <button className="nav-hamburger" onClick={() => setOpen((o) => !o)}>
         {open ? "✕" : "☰"}
       </button>
     </nav>
@@ -1349,11 +1583,11 @@ function Navbar() {
 }
 
 const HERO_SNOWFLAKES = Array.from({ length: 28 }, (_, i) => ({
-  left: (i * 37 + 11) % 100,               // spread pseudo-randomly across 0-99%
-  size: 3 + ((i * 7) % 5),                  // 3-7px
-  duration: 9 + ((i * 13) % 12),            // 9-20s fall time
-  delay: -((i * 5) % 20),                   // negative delay so snow is already falling on load
-  drift: ((i * 29) % 60) - 30               // horizontal sway amplitude
+  left: (i * 37 + 11) % 100, // spread pseudo-randomly across 0-99%
+  size: 3 + ((i * 7) % 5), // 3-7px
+  duration: 9 + ((i * 13) % 12), // 9-20s fall time
+  delay: -((i * 5) % 20), // negative delay so snow is already falling on load
+  drift: ((i * 29) % 60) - 30, // horizontal sway amplitude
 }));
 
 function Hero() {
@@ -1378,21 +1612,40 @@ function Hero() {
       <div className="hero-overlay" />
       <div className="hero-snow" aria-hidden="true">
         {HERO_SNOWFLAKES.map((f, i) => (
-          <span key={i} style={{
-            left: `${f.left}%`,
-            width: f.size, height: f.size,
-            animationDuration: `${f.duration}s`,
-            animationDelay: `${f.delay}s`,
-            marginLeft: f.drift
-          }} />
+          <span
+            key={i}
+            style={{
+              left: `${f.left}%`,
+              width: f.size,
+              height: f.size,
+              animationDuration: `${f.duration}s`,
+              animationDelay: `${f.delay}s`,
+              marginLeft: f.drift,
+            }}
+          />
         ))}
       </div>
       <div className="hero-content">
-        <div className="hero-badge"><Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated Homestay on Adi Kailash Route</div>
-        <h1>Stay Where the<br /><span>Himalayas Begin</span></h1>
-        <p className="hero-tagline">Best stay for nature lovers &amp; Adi Kailash travelers · Baluwakot, Uttarakhand</p>
+        <div className="hero-badge">
+          <Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated
+          Homestay on Adi Kailash Route
+        </div>
+        <h1>
+          Stay Where the
+          <br />
+          <span>Himalayas Begin</span>
+        </h1>
+        <p className="hero-tagline">
+          Best stay for nature lovers &amp; Adi Kailash travelers · Baluwakot,
+          Uttarakhand
+        </p>
         <div className="hero-stats">
-          {[["500+", "Happy Guests"], ["6", "Unique Rooms"], ["5,905 ft", "Altitude"], ["4.9★", "Avg Rating"]].map(([n, l]) => (
+          {[
+            ["500+", "Happy Guests"],
+            ["6", "Unique Rooms"],
+            ["5,905 ft", "Altitude"],
+            ["4.9★", "Avg Rating"],
+          ].map(([n, l]) => (
             <div className="hero-stat" key={l}>
               <div className="hero-stat-num">{n}</div>
               <div className="hero-stat-label">{l}</div>
@@ -1422,23 +1675,27 @@ function Rooms({ onBook }) {
 
   const count = rooms.length;
   const safeActive = count ? ((active % count) + count) % count : 0;
-  const go = i => { if (count) setActive(((i % count) + count) % count); };
+  const go = (i) => {
+    if (count) setActive(((i % count) + count) % count);
+  };
   const prevRoom = () => go(safeActive - 1);
   const nextRoom = () => go(safeActive + 1);
 
-  const onChipClick = t => {
+  const onChipClick = (t) => {
     setFilter(t);
     if (t === "All") {
       go(0); // reset to first room (Deluxe)
     } else {
-      const idx = rooms.findIndex(r => r.type === t);
+      const idx = rooms.findIndex((r) => r.type === t);
       if (idx >= 0) go(idx);
     }
   };
 
   // Touch swipe navigation
-  const onTouchStart = e => { touchX.current = e.touches[0].clientX; };
-  const onTouchEnd = e => {
+  const onTouchStart = (e) => {
+    touchX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e) => {
     if (touchX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
     if (Math.abs(dx) > 45) (dx < 0 ? nextRoom : prevRoom)();
@@ -1446,57 +1703,112 @@ function Rooms({ onBook }) {
   };
 
   // Keyboard navigation (works once focus is inside the section)
-  const onKeyDown = e => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); prevRoom(); }
-    if (e.key === "ArrowRight") { e.preventDefault(); nextRoom(); }
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      prevRoom();
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nextRoom();
+    }
   };
 
   return (
-    <section className="section" id="rooms" tabIndex={-1} onKeyDown={onKeyDown}
-             onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <section
+      className="section"
+      id="rooms"
+      tabIndex={-1}
+      onKeyDown={onKeyDown}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <div className="section-header-row reveal">
         <div>
-          <span className="section-label"><BedDouble size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Our Rooms</span>
+          <span className="section-label">
+            <BedDouble
+              size={14}
+              strokeWidth={2.2}
+              style={{ verticalAlign: "-2px", marginRight: "5px" }}
+            />
+            Our Rooms
+          </span>
           <h2 className="section-title">Find Your Perfect Stay</h2>
-          <p className="section-sub">Each room is thoughtfully designed to immerse you in the beauty of the Himalayas.</p>
+          <p className="section-sub">
+            Each room is thoughtfully designed to immerse you in the beauty of
+            the Himalayas.
+          </p>
         </div>
       </div>
       <div className="filter-bar reveal">
-        {types.map(t => (
-          <button key={t} className={`filter-chip${filter === t ? " active" : ""}`}
-                  onClick={() => onChipClick(t)}>{t}</button>
+        {types.map((t) => (
+          <button
+            key={t}
+            className={`filter-chip${filter === t ? " active" : ""}`}
+            onClick={() => onChipClick(t)}
+          >
+            {t}
+          </button>
         ))}
       </div>
       <>
         {/* --slide-x drives the mobile track position (ignored on desktop):
             shifting the whole row by (card width + gap) per step gives one
             consistent smooth slide no matter what triggered the change. */}
-        <div className="rooms-slider reveal"
-             style={{ touchAction: "pan-y", "--slide-x": `translate3d(calc(${safeActive} * (-100% - 14px)), 0, 0)` }}>
+        <div
+          className="rooms-slider reveal"
+          style={{
+            touchAction: "pan-y",
+            "--slide-x": `translate3d(calc(${safeActive} * (-100% - 14px)), 0, 0)`,
+          }}
+        >
           {rooms.map((room, i) => {
-            const pos = ((i - safeActive) % count + count) % count; // 0 = focused, 1 = right peek, count-1 = left peek
-            const posClass = pos === 0 ? "is-active" : pos === 1 ? "is-right" : pos === count - 1 ? "is-left" : "";
+            const pos = (((i - safeActive) % count) + count) % count; // 0 = focused, 1 = right peek, count-1 = left peek
+            const posClass =
+              pos === 0
+                ? "is-active"
+                : pos === 1
+                  ? "is-right"
+                  : pos === count - 1
+                    ? "is-left"
+                    : "";
             return (
-              <RoomCard key={room.id} room={room} onBook={onBook}
-                        posClass={posClass} onClick={() => setActive(i)} />
+              <RoomCard
+                key={room.id}
+                room={room}
+                onBook={onBook}
+                posClass={posClass}
+                onClick={() => setActive(i)}
+              />
             );
           })}
-            {count > 1 && (
-              <>
-                <button className="rooms-arrow prev" aria-label="Previous room" onClick={prevRoom}>
-                  <ChevronLeft size={22} />
-                </button>
-                <button className="rooms-arrow next" aria-label="Next room" onClick={nextRoom}>
-                  <ChevronRight size={22} />
-                </button>
-              </>
-            )}
-          </div>
+          {count > 1 && (
+            <>
+              <button
+                className="rooms-arrow prev"
+                aria-label="Previous room"
+                onClick={prevRoom}
+              >
+                <ChevronLeft size={22} />
+              </button>
+              <button
+                className="rooms-arrow next"
+                aria-label="Next room"
+                onClick={nextRoom}
+              >
+                <ChevronRight size={22} />
+              </button>
+            </>
+          )}
+        </div>
         <div className="rooms-dots">
           {rooms.map((room, i) => (
-            <button key={room.id} aria-label={`Go to ${room.name}`}
-                    className={`room-dot${i === safeActive ? " active" : ""}`}
-                    onClick={() => go(i)} />
+            <button
+              key={room.id}
+              aria-label={`Go to ${room.name}`}
+              className={`room-dot${i === safeActive ? " active" : ""}`}
+              onClick={() => go(i)}
+            />
           ))}
         </div>
         <div style={{ textAlign: "center", marginTop: "1.25rem" }}>
@@ -1522,10 +1834,14 @@ function RoomGalleryPage({ onClose }) {
   };
 
   useEffect(() => {
-    const fn = e => {
-      if (e.key === "Escape") { lightbox >= 0 ? setLightbox(-1) : requestClose(); }
-      if (lightbox >= 0 && e.key === "ArrowRight") setLightbox(i => (i + 1) % ROOM_PHOTOS.length);
-      if (lightbox >= 0 && e.key === "ArrowLeft") setLightbox(i => (i - 1 + ROOM_PHOTOS.length) % ROOM_PHOTOS.length);
+    const fn = (e) => {
+      if (e.key === "Escape") {
+        lightbox >= 0 ? setLightbox(-1) : requestClose();
+      }
+      if (lightbox >= 0 && e.key === "ArrowRight")
+        setLightbox((i) => (i + 1) % ROOM_PHOTOS.length);
+      if (lightbox >= 0 && e.key === "ArrowLeft")
+        setLightbox((i) => (i - 1 + ROOM_PHOTOS.length) % ROOM_PHOTOS.length);
     };
     window.addEventListener("keydown", fn);
     // Lock page scroll but compensate for the scrollbar so the site doesn't shift behind us
@@ -1541,25 +1857,56 @@ function RoomGalleryPage({ onClose }) {
   }, [lightbox, closing]);
 
   return (
-    <div className={`rg-page${closing ? " is-closing" : ""}`} role="dialog" aria-modal="true" aria-label="Room photos">
+    <div
+      className={`rg-page${closing ? " is-closing" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Room photos"
+    >
       <div className="rg-topbar">
-        <button className="rg-back" aria-label="Back to site" onClick={requestClose}>
+        <button
+          className="rg-back"
+          aria-label="Back to site"
+          onClick={requestClose}
+        >
           <ChevronLeft size={16} strokeWidth={2.4} /> Back
         </button>
         <span className="rg-brand">Raikhola Homestay</span>
       </div>
       <div className="rg-hero">
-        <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Room Photos</span>
+        <span className="section-label">
+          <Camera
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Room Photos
+        </span>
         <h2 className="rg-title">Inside Our Rooms</h2>
-        <p className="rg-sub">A closer look at the comfort waiting for you at Raikhola Homestay.</p>
+        <p className="rg-sub">
+          A closer look at the comfort waiting for you at Raikhola Homestay.
+        </p>
       </div>
       <div className="rg-grid">
         {ROOM_PHOTOS.map((src, i) => (
-          <button key={i} className="rg-item" style={{ animationDelay: `${i * 70}ms` }}
-                  onClick={() => setLightbox(i)} aria-label={`View photo ${i + 1}`}>
-            <img src={src} alt={`Room ${i + 1}`} decoding="async"
-                 onError={e => { e.currentTarget.style.visibility = "hidden"; }}
-                 onLoad={e => { e.currentTarget.style.visibility = ""; }} />
+          <button
+            key={i}
+            className="rg-item"
+            style={{ animationDelay: `${i * 70}ms` }}
+            onClick={() => setLightbox(i)}
+            aria-label={`View photo ${i + 1}`}
+          >
+            <img
+              src={src}
+              alt={`Room ${i + 1}`}
+              decoding="async"
+              onError={(e) => {
+                e.currentTarget.style.visibility = "hidden";
+              }}
+              onLoad={(e) => {
+                e.currentTarget.style.visibility = "";
+              }}
+            />
             <span className="rg-view">View</span>
           </button>
         ))}
@@ -1567,12 +1914,36 @@ function RoomGalleryPage({ onClose }) {
 
       {lightbox >= 0 && (
         <div className="rg-lightbox" onClick={() => setLightbox(-1)}>
-          <button className="rg-arrow rg-arrow-prev" aria-label="Previous photo"
-                  onClick={e => { e.stopPropagation(); setLightbox(i => (i - 1 + ROOM_PHOTOS.length) % ROOM_PHOTOS.length); }}>‹</button>
-          <img src={ROOM_PHOTOS[lightbox]} alt={`Room ${lightbox + 1}`} onClick={e => e.stopPropagation()} />
-          <button className="rg-arrow rg-arrow-next" aria-label="Next photo"
-                  onClick={e => { e.stopPropagation(); setLightbox(i => (i + 1) % ROOM_PHOTOS.length); }}>›</button>
-          <div className="rg-count">{lightbox + 1} / {ROOM_PHOTOS.length}</div>
+          <button
+            className="rg-arrow rg-arrow-prev"
+            aria-label="Previous photo"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightbox(
+                (i) => (i - 1 + ROOM_PHOTOS.length) % ROOM_PHOTOS.length,
+              );
+            }}
+          >
+            ‹
+          </button>
+          <img
+            src={ROOM_PHOTOS[lightbox]}
+            alt={`Room ${lightbox + 1}`}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="rg-arrow rg-arrow-next"
+            aria-label="Next photo"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightbox((i) => (i + 1) % ROOM_PHOTOS.length);
+            }}
+          >
+            ›
+          </button>
+          <div className="rg-count">
+            {lightbox + 1} / {ROOM_PHOTOS.length}
+          </div>
         </div>
       )}
     </div>
@@ -1584,26 +1955,55 @@ function RoomCard({ room, onBook, posClass = "", onClick }) {
   const isActive = posClass === "is-active";
 
   // Show first photo when a room comes into focus
-  useEffect(() => { if (isActive) setImgIdx(0); }, [isActive]);
+  useEffect(() => {
+    if (isActive) setImgIdx(0);
+  }, [isActive]);
 
   return (
     <div className={`room-card ${posClass}`} onClick={onClick}>
-      <div className="room-img"
-           onClick={e => {
-             if (!isActive) return;               // inactive cards just activate on click
-             e.stopPropagation();
-             setImgIdx(i => (i + 1) % room.images.length);
-           }}>
+      <div
+        className="room-img"
+        onClick={(e) => {
+          if (!isActive) return; // inactive cards just activate on click
+          e.stopPropagation();
+          setImgIdx((i) => (i + 1) % room.images.length);
+        }}
+      >
         {/* Eager + onError fallback: inside the transformed carousel track a lazy
             image can be deferred indefinitely and show as a blank card. */}
-        <img src={room.images[imgIdx]} alt={room.name} decoding="async"
-             onError={e => { e.currentTarget.style.visibility = "hidden"; }}
-             onLoad={e => { e.currentTarget.style.visibility = ""; }} />
+        <img
+          src={room.images[imgIdx]}
+          alt={room.name}
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.style.visibility = "hidden";
+          }}
+          onLoad={(e) => {
+            e.currentTarget.style.visibility = "";
+          }}
+        />
         {room.badge && <span className="room-badge">{room.badge}</span>}
         {room.images.length > 1 && (
-          <div style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "5px" }}>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "5px",
+            }}
+          >
             {room.images.map((_, i) => (
-              <div key={i} style={{ width: "6px", height: "6px", borderRadius: "50%", background: i === imgIdx ? "white" : "rgba(255,255,255,0.5)" }} />
+              <div
+                key={i}
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: i === imgIdx ? "white" : "rgba(255,255,255,0.5)",
+                }}
+              />
             ))}
           </div>
         )}
@@ -1611,23 +2011,38 @@ function RoomCard({ room, onBook, posClass = "", onClick }) {
       <div className="room-body">
         <div className="room-topline">
           <span className="room-type">{room.type}</span>
-          <span className="room-guests"><Users size={13} /> Up to {room.maxGuests} guests</span>
+          <span className="room-guests">
+            <Users size={13} /> Up to {room.maxGuests} guests
+          </span>
         </div>
         <div className="room-name">{room.name}</div>
         <p className="room-desc">{room.description}</p>
         <div className="room-amenities">
-          {room.amenities.map(a => <span key={a} className="amenity-tag">{a}</span>)}
+          {room.amenities.map((a) => (
+            <span key={a} className="amenity-tag">
+              {a}
+            </span>
+          ))}
         </div>
-        <div className="room-footer" style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button className="btn-primary room-book-btn"
-                  onClick={e => { 
-                    e.stopPropagation(); 
-                    if (room.available) {
-                      const msg = `Hello! I would like to book the ${room.name} (${room.type}). Please share the detailed price and availability.`;
-                      window.open(`https://wa.me/917500960261?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
-                    }
-                  }}
-                  disabled={!room.available}>
+        <div
+          className="room-footer"
+          style={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          <button
+            className="btn-primary room-book-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (room.available) {
+                const msg = `Hello! I would like to book the ${room.name} (${room.type}). Please share the detailed price and availability.`;
+                window.open(
+                  `https://wa.me/917500960261?text=${encodeURIComponent(msg)}`,
+                  "_blank",
+                  "noopener",
+                );
+              }
+            }}
+            disabled={!room.available}
+          >
             {room.available ? "Book Now" : "Not Available"}
           </button>
         </div>
@@ -1638,46 +2053,68 @@ function RoomCard({ room, onBook, posClass = "", onClick }) {
 
 function BookingModal({ room, preCheckin, preCheckout, preGuests, onClose }) {
   const [form, setForm] = useState({
-    name: "", email: "", phone: "",
-    checkin: preCheckin || "", checkout: preCheckout || "",
-    guests: preGuests || "1", special: "",
-    selectedRoom: room?.id || ""
+    name: "",
+    email: "",
+    phone: "",
+    checkin: preCheckin || "",
+    checkout: preCheckout || "",
+    guests: preGuests || "1",
+    special: "",
+    selectedRoom: room?.id || "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [bookingId] = useState("SIH-" + Math.random().toString(36).slice(2, 7).toUpperCase());
+  const [bookingId] = useState(
+    "SIH-" + Math.random().toString(36).slice(2, 7).toUpperCase(),
+  );
 
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
-  const nights = form.checkin && form.checkout
-    ? Math.max(0, Math.ceil((new Date(form.checkout) - new Date(form.checkin)) / 86400000))
-    : 0;
+  const nights =
+    form.checkin && form.checkout
+      ? Math.max(
+          0,
+          Math.ceil(
+            (new Date(form.checkout) - new Date(form.checkin)) / 86400000,
+          ),
+        )
+      : 0;
 
-  const selectedRoom = room || ROOMS.find(r => r.id === Number(form.selectedRoom));
+  const selectedRoom =
+    room || ROOMS.find((r) => r.id === Number(form.selectedRoom));
   const total = selectedRoom && nights > 0 ? selectedRoom.price * nights : 0;
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.phone || !form.checkin || !form.checkout) {
+    if (
+      !form.name ||
+      !form.email ||
+      !form.phone ||
+      !form.checkin ||
+      !form.checkout
+    ) {
       alert("Please fill all required fields.");
       return;
     }
-    if (!selectedRoom) { alert("Please select a room."); return; }
+    if (!selectedRoom) {
+      alert("Please select a room.");
+      return;
+    }
     setLoading(true);
     try {
       await sendEmail(EMAILJS_BOOKING_TEMPLATE, {
-        booking_id:  bookingId,
-        guest_name:  form.name,
+        booking_id: bookingId,
+        guest_name: form.name,
         guest_email: form.email,
         guest_phone: form.phone,
-        room_name:   selectedRoom.name,
-        room_type:   selectedRoom.type,
-        checkin:     form.checkin,
-        checkout:    form.checkout,
-        nights:      nights,
-        guests:      form.guests,
-        total:       "Rs." + total.toLocaleString(),
+        room_name: selectedRoom.name,
+        room_type: selectedRoom.type,
+        checkin: form.checkin,
+        checkout: form.checkout,
+        nights: nights,
+        guests: form.guests,
+        total: "Rs." + total.toLocaleString(),
         special_req: form.special || "None",
-        reply_to:    form.email,
+        reply_to: form.email,
       });
       setSubmitted(true);
     } catch (err) {
@@ -1692,87 +2129,175 @@ function BookingModal({ room, preCheckin, preCheckout, preGuests, onClose }) {
   const today = new Date().toISOString().split("T")[0];
 
   return (
-    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+    <div
+      className="modal-overlay"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <div className="modal">
         {submitted ? (
           <div className="success-box">
-            <div className="success-icon"><CheckCircle2 size={56} strokeWidth={1.6} color="#2d5a3d" /></div>
+            <div className="success-icon">
+              <CheckCircle2 size={56} strokeWidth={1.6} color="#2d5a3d" />
+            </div>
             <h3>Booking Confirmed!</h3>
-            <p>Booking ID: <strong>{bookingId}</strong><br />
-              Thank you, <strong>{form.name}</strong>! Your stay at <strong>{selectedRoom?.name}</strong> is confirmed.<br /><br />
+            <p>
+              Booking ID: <strong>{bookingId}</strong>
+              <br />
+              Thank you, <strong>{form.name}</strong>! Your stay at{" "}
+              <strong>{selectedRoom?.name}</strong> is confirmed.
+              <br />
+              <br />
               We'll send details to <strong>{form.email}</strong>.<br />
-              For questions, WhatsApp: <strong>+91 94120 XXXXX</strong></p>
-            <button className="btn-primary mt-3" onClick={onClose}>Close</button>
+              For questions, WhatsApp: <strong>+91 94120 XXXXX</strong>
+            </p>
+            <button className="btn-primary mt-3" onClick={onClose}>
+              Close
+            </button>
           </div>
         ) : (
           <>
             <h2>Book Your Stay</h2>
-            <p className="modal-room-name">{room ? `Room: ${room.name} · ₹${room.price}/night` : "Select your preferred room"}</p>
+            <p className="modal-room-name">
+              {room
+                ? `Room: ${room.name} · ₹${room.price}/night`
+                : "Select your preferred room"}
+            </p>
             <div className="form-grid">
               <div className="form-group full">
                 <label>Full Name *</label>
-                <input placeholder="Your full name" value={form.name} onChange={e => set("name", e.target.value)} />
+                <input
+                  placeholder="Your full name"
+                  value={form.name}
+                  onChange={(e) => set("name", e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label>Email *</label>
-                <input type="email" placeholder="email@example.com" value={form.email} onChange={e => set("email", e.target.value)} />
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  value={form.email}
+                  onChange={(e) => set("email", e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label>Phone *</label>
-                <input type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => set("phone", e.target.value)} />
+                <input
+                  type="tel"
+                  placeholder="+91 XXXXX XXXXX"
+                  value={form.phone}
+                  onChange={(e) => set("phone", e.target.value)}
+                />
               </div>
               {!room && (
                 <div className="form-group full">
                   <label>Select Room *</label>
-                  <select value={form.selectedRoom} onChange={e => set("selectedRoom", e.target.value)}>
+                  <select
+                    value={form.selectedRoom}
+                    onChange={(e) => set("selectedRoom", e.target.value)}
+                  >
                     <option value="">Choose a room</option>
-                    {ROOMS.filter(r => r.available).map(r => (
-                      <option key={r.id} value={r.id}>{r.name} — ₹{r.price}/night</option>
+                    {ROOMS.filter((r) => r.available).map((r) => (
+                      <option key={r.id} value={r.id}>
+                        {r.name} — ₹{r.price}/night
+                      </option>
                     ))}
                   </select>
                 </div>
               )}
               <div className="form-group">
                 <label>Check-in *</label>
-                <input type="date" min={today} value={form.checkin} onChange={e => set("checkin", e.target.value)} />
+                <input
+                  type="date"
+                  min={today}
+                  value={form.checkin}
+                  onChange={(e) => set("checkin", e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label>Check-out *</label>
-                <input type="date" min={form.checkin || today} value={form.checkout} onChange={e => set("checkout", e.target.value)} />
+                <input
+                  type="date"
+                  min={form.checkin || today}
+                  value={form.checkout}
+                  onChange={(e) => set("checkout", e.target.value)}
+                />
               </div>
               <div className="form-group">
                 <label>Guests</label>
-                <select value={form.guests} onChange={e => set("guests", e.target.value)}>
-                  {[1,2,3,4,5].map(n => <option key={n} value={n}>{n} Guest{n > 1 ? "s" : ""}</option>)}
+                <select
+                  value={form.guests}
+                  onChange={(e) => set("guests", e.target.value)}
+                >
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n} Guest{n > 1 ? "s" : ""}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="form-group">
                 <label>Nights</label>
-                <input readOnly value={nights > 0 ? `${nights} night${nights > 1 ? "s" : ""}` : "Select dates"} style={{ background: "#f0f5f7", cursor: "default" }} />
+                <input
+                  readOnly
+                  value={
+                    nights > 0
+                      ? `${nights} night${nights > 1 ? "s" : ""}`
+                      : "Select dates"
+                  }
+                  style={{ background: "#f0f5f7", cursor: "default" }}
+                />
               </div>
               <div className="form-group full">
                 <label>Special Requests</label>
-                <textarea placeholder="Early check-in, dietary needs, trek guidance..." value={form.special} onChange={e => set("special", e.target.value)} />
+                <textarea
+                  placeholder="Early check-in, dietary needs, trek guidance..."
+                  value={form.special}
+                  onChange={(e) => set("special", e.target.value)}
+                />
               </div>
             </div>
             {total > 0 && (
               <div className="modal-total">
                 <div>
                   <div className="modal-total-label">Total Estimate</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{selectedRoom?.name} × {nights} night{nights > 1 ? "s" : ""}</div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--muted)" }}>
+                    {selectedRoom?.name} × {nights} night{nights > 1 ? "s" : ""}
+                  </div>
                 </div>
-                <div className="modal-total-price">₹{total.toLocaleString()}</div>
+                <div className="modal-total-price">
+                  ₹{total.toLocaleString()}
+                </div>
               </div>
             )}
             <div className="modal-footer">
-              <button className="btn-outline" onClick={onClose}>Cancel</button>
-              <button className="btn-primary" onClick={handleSubmit} disabled={loading}
-                      style={{ flex: 1 }}>
+              <button className="btn-outline" onClick={onClose}>
+                Cancel
+              </button>
+              <button
+                className="btn-primary"
+                onClick={handleSubmit}
+                disabled={loading}
+                style={{ flex: 1 }}
+              >
                 {loading ? "Processing..." : "Confirm Booking"}
               </button>
             </div>
-            <p style={{ fontSize: "0.73rem", color: "var(--muted)", marginTop: "1rem", textAlign: "center" }}>
-              <Lock size={12} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "4px" }} />Secure booking · No payment required now · Free cancellation 48h before check-in
+            <p
+              style={{
+                fontSize: "0.73rem",
+                color: "var(--muted)",
+                marginTop: "1rem",
+                textAlign: "center",
+              }}
+            >
+              <Lock
+                size={12}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-2px", marginRight: "4px" }}
+              />
+              Secure booking · No payment required now · Free cancellation 48h
+              before check-in
             </p>
           </>
         )}
@@ -1784,8 +2309,8 @@ function BookingModal({ room, preCheckin, preCheckout, preGuests, onClose }) {
 function Gallery() {
   const SLIDE_MS = 600; // must match .slider-track transition duration
   const N = GALLERY.length;
-  const [idx, setIdx] = useState(0);        // real slides 0..N-1, clones at N (first) and -1 (last)
-  const [anim, setAnim] = useState(true);   // transition on/off for seamless snapping
+  const [idx, setIdx] = useState(0); // real slides 0..N-1, clones at N (first) and -1 (last)
+  const [anim, setAnim] = useState(true); // transition on/off for seamless snapping
   const [paused, setPaused] = useState(false);
 
   // ── Hand-drag / swipe ──
@@ -1795,27 +2320,34 @@ function Gallery() {
   // snaps to the neighbouring slide on release.
   const sliderRef = useRef(null);
   const trackRef = useRef(null);
-  const idxRef = useRef(0);                  // mirror of idx, readable from DOM handlers
+  const idxRef = useRef(0); // mirror of idx, readable from DOM handlers
   const drag = useRef({ active: false, startX: 0, dx: 0, id: null });
   const [dragging, setDragging] = useState(false);
-  const DRAG_THRESHOLD = 0.14;               // fraction of slider width needed to change slide
+  const DRAG_THRESHOLD = 0.14; // fraction of slider width needed to change slide
   const SMOOTH = "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)"; // keep in sync with .slider-track
   // Slide transform is written straight to the DOM (like the reviews ticker) so a
   // drag moves the track on every pointermove without a React re-render per frame.
-  const slideX = (i, dx = 0) => `translateX(calc(-${(i + 1) * 100}% + ${dx}px))`;
+  const slideX = (i, dx = 0) =>
+    `translateX(calc(-${(i + 1) * 100}% + ${dx}px))`;
 
-  const norm = i => ((i % N) + N) % N;
+  const norm = (i) => ((i % N) + N) % N;
 
-  const move = useCallback((dir) => {
+  const move = useCallback(
+    (dir) => {
+      setAnim(true);
+      setIdx((i) => {
+        const next = i + dir;
+        if (next > N || next < -1) return i; // ignore while standing on a clone
+        return next;
+      });
+    },
+    [N],
+  );
+
+  const goTo = (i) => {
     setAnim(true);
-    setIdx(i => {
-      const next = i + dir;
-      if (next > N || next < -1) return i;  // ignore while standing on a clone
-      return next;
-    });
-  }, [N]);
-
-  const goTo = (i) => { setAnim(true); setIdx(norm(i)); };
+    setIdx(norm(i));
+  };
 
   // Position the track whenever the slide or the animation flag changes — and
   // hand it back to smooth CSS animation after an instant snap.
@@ -1843,7 +2375,9 @@ function Gallery() {
   // Re-enable transitions a couple of frames after an instant snap
   useEffect(() => {
     if (!anim) {
-      const r = requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
+      const r = requestAnimationFrame(() =>
+        requestAnimationFrame(() => setAnim(true)),
+      );
       return () => cancelAnimationFrame(r);
     }
   }, [anim]);
@@ -1863,10 +2397,10 @@ function Gallery() {
 
   // ── Drag handlers (mouse on laptops, touch on phones/tablets) ──
   const onPointerDown = (e) => {
-    if (e.pointerType === "mouse" && e.button !== 0) return;   // right/middle click
-    if (e.target.closest("button")) return;                    // arrows & dots keep their clicks
+    if (e.pointerType === "mouse" && e.button !== 0) return; // right/middle click
+    if (e.target.closest("button")) return; // arrows & dots keep their clicks
     drag.current = { active: true, startX: e.clientX, dx: 0, id: e.pointerId };
-    e.currentTarget.setPointerCapture?.(e.pointerId);          // keep the drag while the hand moves off the slider
+    e.currentTarget.setPointerCapture?.(e.pointerId); // keep the drag while the hand moves off the slider
     setDragging(true);
     setPaused(true);
   };
@@ -1877,7 +2411,7 @@ function Gallery() {
     d.dx = e.clientX - d.startX;
     const t = trackRef.current;
     if (!t) return;
-    t.style.transition = "none";                 // the track must track the hand 1:1
+    t.style.transition = "none"; // the track must track the hand 1:1
     t.style.transform = slideX(idxRef.current, d.dx);
   };
 
@@ -1899,7 +2433,7 @@ function Gallery() {
     // (e.g. a click that drifted a pixel or two) springs straight back.
     const past = Math.abs(dx) > width * DRAG_THRESHOLD;
     let target = past ? cur + (dx < 0 ? 1 : -1) : cur;
-    if (target > N || target < -1) target = cur;   // no slide lives past the clones
+    if (target > N || target < -1) target = cur; // no slide lives past the clones
     // Never settle on a clone (the loop padding slides) or the slider would stall
     // there — realign to the twin real slide, which is the same photo, unseen.
     let next = target;
@@ -1913,12 +2447,18 @@ function Gallery() {
     }
     setDragging(false);
     setPaused(false);
-    if (next !== cur) { setAnim(!jumped); setIdx(next); }
+    if (next !== cur) {
+      setAnim(!jumped);
+      setIdx(next);
+    }
   };
 
   // Keyboard navigation
   useEffect(() => {
-    const fn = (e) => { if (e.key === "ArrowRight") move(1); if (e.key === "ArrowLeft") move(-1); };
+    const fn = (e) => {
+      if (e.key === "ArrowRight") move(1);
+      if (e.key === "ArrowLeft") move(-1);
+    };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
   }, [move]);
@@ -1926,9 +2466,19 @@ function Gallery() {
   return (
     <div className="gallery-bg" id="gallery">
       <div className="gallery-inner reveal">
-          <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Gallery</span>
-          <h2 className="section-title">A Glimpse of Paradise</h2>
-          <p className="section-sub">Every corner of Raikhola Homestay tells a story of mountains, warmth and wonder.</p>
+        <span className="section-label">
+          <Camera
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Gallery
+        </span>
+        <h2 className="section-title">A Glimpse of Paradise</h2>
+        <p className="section-sub">
+          Every corner of Raikhola Homestay tells a story of mountains, warmth
+          and wonder.
+        </p>
         <div
           ref={sliderRef}
           className={`slider${dragging ? " is-dragging" : ""}`}
@@ -1943,12 +2493,28 @@ function Gallery() {
               effect above) so a hand-drag can update it every frame for free. */}
           <div className="slider-track" ref={trackRef}>
             {[GALLERY[N - 1], ...GALLERY, GALLERY[0]].map((img, i) => (
-              <div className={`slider-slide${i === idx + 1 ? " is-current" : ""}`} key={i}>
+              <div
+                className={`slider-slide${i === idx + 1 ? " is-current" : ""}`}
+                key={i}
+              >
                 {/* No lazy-loading here: inside the translating carousel track the
                     browser can defer these forever, leaving slides permanently blank.
                     All 9 gallery photos load eagerly (they're the section's content). */}
-                <img className="slider-img-blur" src={img.url} alt="" aria-hidden="true" decoding="async" draggable="false" />
-                <img className="slider-img" src={img.url} alt={img.label} decoding="async" draggable="false" />
+                <img
+                  className="slider-img-blur"
+                  src={img.url}
+                  alt=""
+                  aria-hidden="true"
+                  decoding="async"
+                  draggable="false"
+                />
+                <img
+                  className="slider-img"
+                  src={img.url}
+                  alt={img.label}
+                  decoding="async"
+                  draggable="false"
+                />
                 <div className="slider-caption">
                   <span className="slider-cat">{img.cat}</span>
                   <span className="slider-label">{img.label}</span>
@@ -1956,11 +2522,28 @@ function Gallery() {
               </div>
             ))}
           </div>
-          <button className="slider-arrow slider-prev" onClick={() => move(-1)} aria-label="Previous slide">‹</button>
-          <button className="slider-arrow slider-next" onClick={() => move(1)} aria-label="Next slide">›</button>
+          <button
+            className="slider-arrow slider-prev"
+            onClick={() => move(-1)}
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+          <button
+            className="slider-arrow slider-next"
+            onClick={() => move(1)}
+            aria-label="Next slide"
+          >
+            ›
+          </button>
           <div className="slider-dots">
             {GALLERY.map((_, i) => (
-              <button key={i} className={`slider-dot${norm(idx) === i ? " active" : ""}`} onClick={() => goTo(i)} aria-label={`Go to slide ${i + 1}`} />
+              <button
+                key={i}
+                className={`slider-dot${norm(idx) === i ? " active" : ""}`}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
             ))}
           </div>
         </div>
@@ -1973,19 +2556,21 @@ function Gallery() {
 // Room/valley view leads; posters are property photos so nothing loads until play.
 const TOUR_VIDEOS = [
   { poster: raikholaPoster, label: "Raikhola Homestay Exterior" },
-  { poster: roomReal1,      label: "Deluxe Room" },
-  { poster: roomReal2,      label: "Standard Room" },
-  { poster: roomReal3,      label: "Shared Room" },
+  { poster: roomReal1, label: "Deluxe Room" },
+  { poster: roomReal2, label: "Standard Room" },
+  { poster: roomReal3, label: "Shared Room" },
 ];
 
 function VideoSection() {
   const N = TOUR_VIDEOS.length;
   const [idx, setIdx] = useState(0);
-  const go = i => setIdx(((i % N) + N) % N);
+  const go = (i) => setIdx(((i % N) + N) % N);
 
   const swipe = useRef(null);
-  const onTouchStart = e => { swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
-  const onTouchEnd = e => {
+  const onTouchStart = (e) => {
+    swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+  const onTouchEnd = (e) => {
     const start = swipe.current;
     swipe.current = null;
     if (!start) return;
@@ -1997,24 +2582,60 @@ function VideoSection() {
 
   return (
     <div className="video-bg" id="video">
-      <div className="video-inner reveal">          <span className="section-label"><Camera size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Gallery</span>
+      <div className="video-inner reveal">
+        {" "}
+        <span className="section-label">
+          <Camera
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Gallery
+        </span>
         <h2 className="section-title">See It Before You Visit</h2>
         <p className="section-sub">
-          Take a real tour of Raikhola Homestay and the breathtaking 
+          Take a real tour of Raikhola Homestay and the breathtaking
           surroundings of Baluwakot, Uttarakhand.
         </p>
-        <div className="video-slider" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <div
+          className="video-slider"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
           <div className="video-track" style={{ left: `-${idx * 100}%` }}>
             {TOUR_VIDEOS.map((v, i) => (
               <div className="video-slide" key={v.label}>
-                <img src={v.poster} alt={v.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img
+                  src={v.poster}
+                  alt={v.label}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
                 <span className="video-tag">{v.label}</span>
               </div>
             ))}
           </div>
-          <button className="slider-arrow slider-prev" onClick={() => go(idx - 1)} aria-label="Previous slide">‹</button>
-          <button className="slider-arrow slider-next" onClick={() => go(idx + 1)} aria-label="Next slide">›</button>
-          <div className="video-count">{idx + 1} / {N}</div>
+          <button
+            className="slider-arrow slider-prev"
+            onClick={() => go(idx - 1)}
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+          <button
+            className="slider-arrow slider-next"
+            onClick={() => go(idx + 1)}
+            aria-label="Next slide"
+          >
+            ›
+          </button>
+          <div className="video-count">
+            {idx + 1} / {N}
+          </div>
         </div>
       </div>
     </div>
@@ -2024,13 +2645,25 @@ function VideoSection() {
 function Services() {
   return (
     <section className="section" id="services">
-      <span className="section-label"><Sparkles size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Services</span>
+      <span className="section-label">
+        <Sparkles
+          size={14}
+          strokeWidth={2.2}
+          style={{ verticalAlign: "-2px", marginRight: "5px" }}
+        />
+        Services
+      </span>
       <h2 className="section-title">Everything You Need</h2>
-      <p className="section-sub">Beyond comfortable rooms, we offer experiences that make your Himalayan journey unforgettable.</p>
+      <p className="section-sub">
+        Beyond comfortable rooms, we offer experiences that make your Himalayan
+        journey unforgettable.
+      </p>
       <div className="services-grid reveal">
         {SERVICES.map(({ Icon, title, desc }) => (
           <div key={title} className="service-card">
-            <span className="service-icon"><Icon size={28} strokeWidth={1.8} /></span>
+            <span className="service-icon">
+              <Icon size={28} strokeWidth={1.8} />
+            </span>
             <div>
               <div className="service-title">{title}</div>
               <div className="service-desc">{desc}</div>
@@ -2048,33 +2681,42 @@ function About() {
       <div className="about-grid reveal">
         <div className="about-img-stack">
           <div className="about-img-main">
-            <div className="floating-caption" style={{
-              position: 'absolute',
-              top: '10%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: 'rgba(255, 255, 255, 0.95)',
-              padding: '10px 20px',
-              borderRadius: '30px',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-              textAlign: 'center',
-              zIndex: 10,
-              fontFamily: "'DM Sans', sans-serif",
-              whiteSpace: 'nowrap'
-            }}>
-              <div style={{fontWeight: '700', color: '#1a3a4a'}}>Tikendra Singh Raikhola</div>
-              <div style={{fontSize: '0.85rem', color: '#5a7380'}}>Ex Indian Army jai Hind 🇮🇳</div>
+            <div
+              className="floating-caption"
+              style={{
+                position: "absolute",
+                top: "10%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "rgba(255, 255, 255, 0.95)",
+                padding: "10px 20px",
+                borderRadius: "30px",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+                textAlign: "center",
+                zIndex: 10,
+                fontFamily: "'DM Sans', sans-serif",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <div style={{ fontWeight: "700", color: "#1a3a4a" }}>
+                Tikendra Singh Raikhola
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "#5a7380" }}>
+                Ex Indian Army jai Hind 🇮🇳
+              </div>
               {/* Cloud tail */}
-              <div style={{
-                position: 'absolute',
-                bottom: '-8px',
-                left: '50%',
-                transform: 'translateX(-50%) rotate(45deg)',
-                width: '16px',
-                height: '16px',
-                background: 'rgba(255, 255, 255, 0.95)',
-                zIndex: -1
-              }}></div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "-8px",
+                  left: "50%",
+                  transform: "translateX(-50%) rotate(45deg)",
+                  width: "16px",
+                  height: "16px",
+                  background: "rgba(255, 255, 255, 0.95)",
+                  zIndex: -1,
+                }}
+              ></div>
             </div>
             <img src={roomImgHero} alt="Comfortable Room" />
           </div>
@@ -2087,24 +2729,70 @@ function About() {
           </div>
         </div>
         <div className="about-text">
-          <span className="section-label"><HomeIcon size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Our Story</span>
+          <span className="section-label">
+            <HomeIcon
+              size={14}
+              strokeWidth={2.2}
+              style={{ verticalAlign: "-2px", marginRight: "5px" }}
+            />
+            Our Story
+          </span>
           <h2 className="section-title">Born from a Love of Mountains</h2>
-          <p>Raikhola Homestay began as a dream of a local Kumaoni family who wanted to share the magic of their homeland with the world. What started as a few rooms in a family home has grown into a beloved boutique homestay.</p>
-          <p>Nestled in the scenic village of Baluwakot, Dharchula, Uttarakhand, we're ideally placed on the route to Adi Kailash — one of the most sacred Himalayan shrines. Our guests aren't just visitors; they become part of our mountain family.</p>
+          <p>
+            Raikhola Homestay began as a dream of a local Kumaoni family who
+            wanted to share the magic of their homeland with the world. What
+            started as a few rooms in a family home has grown into a beloved
+            boutique homestay.
+          </p>
+          <p>
+            Nestled in the scenic village of Baluwakot, Dharchula, Uttarakhand,
+            we're ideally placed on the route to Adi Kailash — one of the most
+            sacred Himalayan shrines. Our guests aren't just visitors; they
+            become part of our mountain family.
+          </p>
           <div className="highlights">
-            {["On Adi Kailash Route", "Dharchula – Baluwakot Road", "Mountain River Views"].map(h => (
-              <span key={h} className="highlight"><MapPin size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "4px" }} />{h}</span>
+            {[
+              "On Adi Kailash Route",
+              "Dharchula – Baluwakot Road",
+              "Mountain River Views",
+            ].map((h) => (
+              <span key={h} className="highlight">
+                <MapPin
+                  size={13}
+                  strokeWidth={2.2}
+                  style={{ verticalAlign: "-2px", marginRight: "4px" }}
+                />
+                {h}
+              </span>
             ))}
           </div>
           <div className="about-features">
             {[
-              [MountainSnow, "Panoramic Views", "Unobstructed Himalayan vista from every room"],
-              [Handshake, "Family-Run", "Personal care and authentic local hospitality"],
-              [Recycle, "Eco-Friendly", "Solar power, rainwater harvesting, organic garden"],
-              [ShieldCheck, "Safe & Clean", "Sanitized rooms, filtered water, fire safety certified"],
+              [
+                MountainSnow,
+                "Panoramic Views",
+                "Unobstructed Himalayan vista from every room",
+              ],
+              [
+                Handshake,
+                "Family-Run",
+                "Personal care and authentic local hospitality",
+              ],
+              [
+                Recycle,
+                "Eco-Friendly",
+                "Solar power, rainwater harvesting, organic garden",
+              ],
+              [
+                ShieldCheck,
+                "Safe & Clean",
+                "Sanitized rooms, filtered water, fire safety certified",
+              ],
             ].map(([Icon, title, desc]) => (
               <div key={title} className="about-feature">
-                <span className="about-feature-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                <span className="about-feature-icon">
+                  <Icon size={20} strokeWidth={1.8} />
+                </span>
                 <div className="about-feature-text">
                   <h4>{title}</h4>
                   <p>{desc}</p>
@@ -2121,32 +2809,56 @@ function About() {
 function WhyStay() {
   const reasons = [
     {
-      icon: "🏔️", title: "Himalayan Views", desc: "Wake up to snow-capped Himalayan peaks right from your window.",
-      img: whyHimalayanImg, caption: "Himalayan peaks, from your bed"
+      icon: "🏔️",
+      title: "Himalayan Views",
+      desc: "Wake up to snow-capped Himalayan peaks right from your window.",
+      img: whyHimalayanImg,
+      caption: "Himalayan peaks, from your bed",
     },
     {
-      icon: "🛏️", title: "Comfortable Rooms", desc: "Cozy, heated rooms with premium bedding and 24×7 hot water.",
-      img: roomCardImg, caption: "Warm, cozy & spotless"
+      icon: "🛏️",
+      title: "Comfortable Rooms",
+      desc: "Cozy, heated rooms with premium bedding and 24×7 hot water.",
+      img: roomCardImg,
+      caption: "Warm, cozy & spotless",
     },
     {
-      icon: "🍛", title: "Kumaoni Cuisine", desc: "Authentic home-cooked Kumaoni meals from our organic garden.",
-      img: foodImg, caption: "Fresh local thali"
+      icon: "🍛",
+      title: "Kumaoni Cuisine",
+      desc: "Authentic home-cooked Kumaoni meals from our organic garden.",
+      img: foodImg,
+      caption: "Fresh local thali",
     },
     {
-      icon: "📍", title: "Near Adi Kailash", desc: "Perfect base on the Adi Kailash yatra route — Dharchula–Baluwakot road.",
-      img: kedarImg, caption: "On the Adi Kailash Route"
+      icon: "📍",
+      title: "Near Adi Kailash",
+      desc: "Perfect base on the Adi Kailash yatra route — Dharchula–Baluwakot road.",
+      img: kedarImg,
+      caption: "On the Adi Kailash Route",
     },
     {
-      icon: "❤️", title: "Peaceful Environment", desc: "Village trails, fresh mountain air, bird chirping and warm locals — pure mountain calm.",
-      img: peacefulImg, caption: "Village trail, fresh air & birdsong"
+      icon: "❤️",
+      title: "Peaceful Environment",
+      desc: "Village trails, fresh mountain air, bird chirping and warm locals — pure mountain calm.",
+      img: peacefulImg,
+      caption: "Village trail, fresh air & birdsong",
     },
   ];
 
   return (
     <section className="section" id="why">
-      <span className="section-label"><Heart size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Why Stay With Us</span>
+      <span className="section-label">
+        <Heart
+          size={14}
+          strokeWidth={2.2}
+          style={{ verticalAlign: "-2px", marginRight: "5px" }}
+        />
+        Why Stay With Us
+      </span>
       <h2 className="section-title">Why Stay With Us?</h2>
-      <p className="section-sub">Five reasons travelers choose Raikhola Homestay — and keep coming back.</p>
+      <p className="section-sub">
+        Five reasons travelers choose Raikhola Homestay — and keep coming back.
+      </p>
       <div className="why-grid reveal">
         {reasons.map(({ icon, title, desc, img, caption }) => (
           <div key={title} className="why-card" tabIndex={0}>
@@ -2169,36 +2881,72 @@ function WhyStay() {
 
 // Inline social brand logos (lucide dropped brand icons) — sized/styled like footer lucide icons
 const YouTubeIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" />
   </svg>
 );
 const FacebookIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
   </svg>
 );
 const InstagramIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
   </svg>
 );
 
 const GoogleReviewsIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 48 48" style={{ verticalAlign: "-3px", marginRight: "7px" }} aria-hidden="true">
-    <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/>
-    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 18.9 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
-    <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/>
-    <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 48 48"
+    style={{ verticalAlign: "-3px", marginRight: "7px" }}
+    aria-hidden="true"
+  >
+    <path
+      fill="#FFC107"
+      d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"
+    />
+    <path
+      fill="#FF3D00"
+      d="M6.3 14.7l6.6 4.8C14.7 15.1 18.9 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.2 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"
+    />
+    <path
+      fill="#4CAF50"
+      d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"
+    />
+    <path
+      fill="#1976D2"
+      d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"
+    />
   </svg>
 );
 
 function Testimonials() {
   const viewportRef = useRef(null);
-  const offset = useRef(0);      // current scroll position of the strip (px)
-  const wrapWidth = useRef(1);   // width of one full set of reviews (px)
+  const offset = useRef(0); // current scroll position of the strip (px)
+  const wrapWidth = useRef(1); // width of one full set of reviews (px)
   const dragging = useRef(null); // { startX, startOffset, id } while pressing
-  const vel = useRef(0);         // px/frame from the last drag motion (for momentum)
+  const vel = useRef(0); // px/frame from the last drag motion (for momentum)
   const lastX = useRef(0);
   const pausedRef = useRef(false);
 
@@ -2218,12 +2966,15 @@ function Testimonials() {
       normalize();
       apply();
     };
-    const apply = () => { track.style.transform = `translate3d(${offset.current}px, 0, 0)`; };
+    const apply = () => {
+      track.style.transform = `translate3d(${offset.current}px, 0, 0)`;
+    };
 
     measure();
     window.addEventListener("resize", measure);
 
-    let raf, last = performance.now();
+    let raf,
+      last = performance.now();
     const tick = (now) => {
       const dt = Math.min(now - last, 50); // clamp tab-switch jumps
       last = now;
@@ -2231,7 +2982,7 @@ function Testimonials() {
         // Announcement drift (~48px/s), or glide from the last drag (momentum)
         const speed = Math.abs(vel.current) > 0.2 ? vel.current : -0.8;
         offset.current += speed * (dt / 16.7);
-        vel.current *= 0.95;              // momentum decays back to base drift
+        vel.current *= 0.95; // momentum decays back to base drift
         if (vel.current > -0.2 && vel.current < 0.2) vel.current = 0;
         normalize();
         apply();
@@ -2240,17 +2991,24 @@ function Testimonials() {
     };
     raf = requestAnimationFrame(tick);
 
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", measure); };
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   // Drag with mouse or finger — moves the row both directions while held.
-  const press = clientX => {
-    dragging.current = { startX: clientX, startOffset: offset.current, moved: false };
+  const press = (clientX) => {
+    dragging.current = {
+      startX: clientX,
+      startOffset: offset.current,
+      moved: false,
+    };
     lastX.current = clientX;
     vel.current = 0;
     pausedRef.current = true;
   };
-  const movePointer = clientX => {
+  const movePointer = (clientX) => {
     if (!dragging.current) return;
     const d = clientX - dragging.current.startX;
     if (Math.abs(d) > 4) dragging.current.moved = true;
@@ -2260,13 +3018,18 @@ function Testimonials() {
     normalize();
     viewportRef.current.firstElementChild.style.transform = `translate3d(${offset.current}px, 0, 0)`;
   };
-  const release = () => { dragging.current = null; pausedRef.current = false; };
+  const release = () => {
+    dragging.current = null;
+    pausedRef.current = false;
+  };
 
   // Safety net: if mouse/touch is released outside the strip (or the tab loses
   // focus mid-drag), stop dragging so the drift always resumes.
   useEffect(() => {
     const up = () => release();
-    const mv = e => { if (dragging.current) movePointer(e.clientX); };
+    const mv = (e) => {
+      if (dragging.current) movePointer(e.clientX);
+    };
     window.addEventListener("mouseup", up);
     window.addEventListener("mousemove", mv);
     window.addEventListener("touchend", up);
@@ -2281,20 +3044,47 @@ function Testimonials() {
   return (
     <div className="testimonials-bg">
       <div className="testimonials-inner reveal">
-        <span className="section-label"><MessageSquare size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Reviews</span>
-        <h2 className="section-title" style={{ marginBottom: "0.5rem" }}>What Our Guests Say</h2>
-        <p style={{ color: "rgba(255,255,255,0.55)", margin: "0 0 1.25rem", fontSize: "1rem" }}>
+        <span className="section-label">
+          <MessageSquare
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Reviews
+        </span>
+        <h2 className="section-title" style={{ marginBottom: "0.5rem" }}>
+          What Our Guests Say
+        </h2>
+        <p
+          style={{
+            color: "rgba(255,255,255,0.55)",
+            margin: "0 0 1.25rem",
+            fontSize: "1rem",
+          }}
+        >
           Real stories from the travelers who've stayed with us
         </p>
-        <div className="testi-viewport" ref={viewportRef}
-             onMouseEnter={() => { pausedRef.current = true; }}
-             onMouseLeave={() => { if (!dragging.current) pausedRef.current = false; }}
-             onMouseDown={e => { e.preventDefault(); press(e.clientX); }}
-             onMouseMove={e => { if (dragging.current) movePointer(e.clientX); }}
-             onMouseUp={release}
-             onTouchStart={e => press(e.touches[0].clientX)}
-             onTouchMove={e => movePointer(e.touches[0].clientX)}
-             onTouchEnd={release}>
+        <div
+          className="testi-viewport"
+          ref={viewportRef}
+          onMouseEnter={() => {
+            pausedRef.current = true;
+          }}
+          onMouseLeave={() => {
+            if (!dragging.current) pausedRef.current = false;
+          }}
+          onMouseDown={(e) => {
+            e.preventDefault();
+            press(e.clientX);
+          }}
+          onMouseMove={(e) => {
+            if (dragging.current) movePointer(e.clientX);
+          }}
+          onMouseUp={release}
+          onTouchStart={(e) => press(e.touches[0].clientX)}
+          onTouchMove={(e) => movePointer(e.touches[0].clientX)}
+          onTouchEnd={release}
+        >
           {/* The set of reviews rendered twice back-to-back → the strip can
               slide forever in either direction with no visible seam. */}
           <div className="testi-track">
@@ -2304,9 +3094,17 @@ function Testimonials() {
                   <div className="testi-stars">{"★".repeat(t.rating)}</div>
                   <p className="testi-text">"{t.text}"</p>
                   <div className="testi-author">
-                    {t.photo
-                      ? <img className="testi-avatar testi-avatar-img" src={t.photo} alt={t.name} loading="lazy" draggable={false} />
-                      : <div className="testi-avatar">{t.avatar}</div>}
+                    {t.photo ? (
+                      <img
+                        className="testi-avatar testi-avatar-img"
+                        src={t.photo}
+                        alt={t.name}
+                        loading="lazy"
+                        draggable={false}
+                      />
+                    ) : (
+                      <div className="testi-avatar">{t.avatar}</div>
+                    )}
                     <div>
                       <div className="testi-name">{t.name}</div>
                       <div className="testi-loc">📍 {t.location}</div>
@@ -2318,8 +3116,14 @@ function Testimonials() {
           </div>
         </div>
         <div className="testi-cta">
-          <a href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer" className="btn-primary testi-cta-btn">
-            <GoogleReviewsIcon />Rate us on Google
+          <a
+            href={GOOGLE_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary testi-cta-btn"
+          >
+            <GoogleReviewsIcon />
+            Rate us on Google
           </a>
         </div>
       </div>
@@ -2331,14 +3135,17 @@ function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
 
-  const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   const [phone, setPhone] = useState("");
 
   const handleSend = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) { alert("Please fill all fields."); return; }
-    
+    if (!form.name || !form.email || !form.message) {
+      alert("Please fill all fields.");
+      return;
+    }
+
     const msg = `Hello! I would like to get in touch.
 Name: ${form.name}
 Email: ${form.email}
@@ -2354,62 +3161,134 @@ ${form.message}`;
 
   return (
     <section className="section" id="contact">
-      <span className="section-label"><Mail size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Contact</span>
+      <span className="section-label">
+        <Mail
+          size={14}
+          strokeWidth={2.2}
+          style={{ verticalAlign: "-2px", marginRight: "5px" }}
+        />
+        Contact
+      </span>
       <h2 className="section-title">Get in Touch</h2>
-      <p className="section-sub">Have questions? We're always happy to help you plan the perfect mountain getaway.</p>
+      <p className="section-sub">
+        Have questions? We're always happy to help you plan the perfect mountain
+        getaway.
+      </p>
       <div className="contact-grid reveal">
         <div className="contact-info">
           <h3>Reach Us Directly</h3>
           {[
-            [MapPin, "Address", "Raikhola Homestay, Baluwakot, Dharchula, Uttarakhand – Adi Kailash Route"],
+            [
+              MapPin,
+              "Address",
+              "Raikhola Homestay, Baluwakot, Dharchula, Uttarakhand – Adi Kailash Route",
+            ],
             [Phone, "Phone", "+91 75009 60261"],
-            [Mail, "Email", "raikholahomestay@gmail.com"],
-            [Clock, "Check-in / Check-out", "Check-in: 12:00 PM · Check-out: 11:00 AM"],
+            [Mail, "Email", "tikendrasingh103@gmail.com"],
+            [
+              Clock,
+              "Check-in / Check-out",
+              "Check-in: 12:00 PM · Check-out: 11:00 AM",
+            ],
             [Mountain, "Altitude", "On the Adi Kailash Himalayan Route"],
           ].map(([Icon, title, val]) => (
             <div key={title} className="contact-item">
-              <div className="contact-icon"><Icon size={20} strokeWidth={1.8} /></div>
+              <div className="contact-icon">
+                <Icon size={20} strokeWidth={1.8} />
+              </div>
               <div>
                 <div className="contact-item-title">{title}</div>
                 <div className="contact-item-val">{val}</div>
               </div>
             </div>
           ))}
-          <a href={WA_BOOKING_URL}
-             target="_blank" rel="noopener noreferrer" className="whatsapp-btn">
+          <a
+            href={WA_BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whatsapp-btn"
+          >
             <MessageCircle size={18} strokeWidth={2} /> Chat on WhatsApp
           </a>
         </div>
         <div>
-          <h3 style={{ fontSize: "1.4rem", color: "var(--peak)", marginBottom: "1.5rem" }}>Send a Message</h3>
+          <h3
+            style={{
+              fontSize: "1.4rem",
+              color: "var(--peak)",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Send a Message
+          </h3>
           {sent ? (
-            <div style={{ textAlign: "center", padding: "3rem 1rem", background: "var(--ice)", borderRadius: "var(--radius)", border: "1px solid var(--glacier)" }}>
+            <div
+              style={{
+                textAlign: "center",
+                padding: "3rem 1rem",
+                background: "var(--ice)",
+                borderRadius: "var(--radius)",
+                border: "1px solid var(--glacier)",
+              }}
+            >
               <Handshake size={40} strokeWidth={1.4} color="var(--gold)" />
-              <h4 style={{ color: "var(--peak)", marginBottom: "0.5rem" }}>Message Received!</h4>
-              <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>Thank you {form.name}! We'll get back to you shortly.</p>
+              <h4 style={{ color: "var(--peak)", marginBottom: "0.5rem" }}>
+                Message Received!
+              </h4>
+              <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
+                Thank you {form.name}! We'll get back to you shortly.
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSend}>
               <div className="form-grid">
                 <div className="form-group">
                   <label>Your Name *</label>
-                  <input placeholder="Full name" value={form.name} onChange={e => set("name", e.target.value)} />
+                  <input
+                    placeholder="Full name"
+                    value={form.name}
+                    onChange={(e) => set("name", e.target.value)}
+                  />
                 </div>
                 <div className="form-group">
                   <label>Email *</label>
-                  <input type="email" placeholder="your@email.com" value={form.email} onChange={e => set("email", e.target.value)} />
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={(e) => set("email", e.target.value)}
+                  />
                 </div>
                 <div className="form-group full">
                   <label>Phone</label>
-                  <input type="tel" placeholder="+91 XXXXX XXXXX" value={phone} onChange={e => setPhone(e.target.value)} />
+                  <input
+                    type="tel"
+                    placeholder="+91 XXXXX XXXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
                 </div>
                 <div className="form-group full">
                   <label>Message *</label>
-                  <textarea style={{ minHeight: "140px" }} placeholder="Ask about rooms, availability, trek guidance, group bookings..." value={form.message} onChange={e => set("message", e.target.value)} />
+                  <textarea
+                    style={{ minHeight: "140px" }}
+                    placeholder="Ask about rooms, availability, trek guidance, group bookings..."
+                    value={form.message}
+                    onChange={(e) => set("message", e.target.value)}
+                  />
                 </div>
               </div>
-              <button type="submit" className="btn-primary" style={{ marginTop: "1rem", width: "100%", padding: "0.85rem" }}>
-                Send Message <Send size={15} strokeWidth={2} style={{ verticalAlign: "-2px", marginLeft: "4px" }} />
+              <button
+                type="submit"
+                className="btn-primary"
+                style={{ marginTop: "1rem", width: "100%", padding: "0.85rem" }}
+              >
+                Send Message{" "}
+                <Send
+                  size={15}
+                  strokeWidth={2}
+                  style={{ verticalAlign: "-2px", marginLeft: "4px" }}
+                />
               </button>
             </form>
           )}
@@ -2426,17 +3305,24 @@ ${form.message}`;
 // page straight back the moment the visitor takes over with wheel, finger or
 // keyboard. `prefers-reduced-motion` skips the glide entirely.
 const reduceMotion = () =>
-  !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  !!(
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 
 // Roughly cubic-bezier(0.4, 0, 0.2, 1) — the same even curve the room slider uses
-const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeInOut = (t) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 // Long hops get more time, but never enough to feel like waiting
-const glideDuration = distance => Math.min(900, 380 + distance * 0.25);
+const glideDuration = (distance) => Math.min(900, 380 + distance * 0.25);
 
-let stopGlide = null;   // cancels whatever glide is in flight
+let stopGlide = null; // cancels whatever glide is in flight
 
 function glideTo(targetY) {
-  const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const maxY = Math.max(
+    0,
+    document.documentElement.scrollHeight - window.innerHeight,
+  );
   const endY = Math.max(0, Math.min(maxY, targetY));
   const startY = window.scrollY;
   const distance = endY - startY;
@@ -2463,7 +3349,10 @@ function glideTo(targetY) {
     window.removeEventListener("keydown", cancel);
     stopGlide = null;
   };
-  const cancel = () => { cancelAnimationFrame(frame); release(); };
+  const cancel = () => {
+    cancelAnimationFrame(frame);
+    release();
+  };
   stopGlide = cancel;
 
   window.addEventListener("wheel", cancel, { passive: true });
@@ -2485,9 +3374,12 @@ function glideTo(targetY) {
 // fixed navbar, which is what `scroll-padding-top` expresses for the native
 // jumps (deep links, back/forward).
 function glideToElement(target) {
-  const el = typeof target === "string" ? document.getElementById(target) : target;
+  const el =
+    typeof target === "string" ? document.getElementById(target) : target;
   if (!el) return;
-  const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  const offset =
+    parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) ||
+    0;
   glideTo(el.getBoundingClientRect().top + window.scrollY - offset);
 }
 
@@ -2503,20 +3395,56 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
         <div className="footer-grid">
           <div>
             <div className="footer-brand-name">
-              <img src={logoImg} alt="Raikhola Homestay logo" className="footer-brand-img" /> Raikhola Homestay
+              <img
+                src={logoImg}
+                alt="Raikhola Homestay logo"
+                className="footer-brand-img"
+              />{" "}
+              Raikhola Homestay
             </div>
-            <p className="footer-brand-desc">A boutique mountain homestay in Baluwakot, Uttarakhand. The perfect base for Adi Kailash pilgrims and Himalayan adventurers.</p>
+            <p className="footer-brand-desc">
+              A boutique mountain homestay in Baluwakot, Uttarakhand. The
+              perfect base for Adi Kailash pilgrims and Himalayan adventurers.
+            </p>
             {/* Placeholder handles — swap in the real profile URLs when ready */}
             <div className="footer-social">
-              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon size={18} /></a>
-              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FacebookIcon size={18} /></a>
-              <a href="#root" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon size={18} /></a>
+              <a
+                href="#root"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
+                <YouTubeIcon size={18} />
+              </a>
+              <a
+                href="#root"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
+                <FacebookIcon size={18} />
+              </a>
+              <a
+                href="https://www.instagram.com/raikhola05homestaybaluwakot?stkn=MW53eXMzcWltc3RoaA=="
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <InstagramIcon size={18} />
+              </a>
             </div>
           </div>
           <div className="footer-col footer-col-explore">
             <h4>Explore</h4>
-            {[["#rooms", "Rooms"], ["#gallery", "Gallery"], ["#services", "Services"], ["#about", "Our Story"]].map(([h, l]) => (
-              <a key={h} href={h}>{l}</a>
+            {[
+              ["#rooms", "Rooms"],
+              ["#gallery", "Gallery"],
+              ["#services", "Services"],
+              ["#about", "Our Story"],
+            ].map(([h, l]) => (
+              <a key={h} href={h}>
+                {l}
+              </a>
             ))}
           </div>
           <div className="footer-col">
@@ -2525,26 +3453,105 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
             <a href="#rooms">Book a Room</a>
             {/* Both open the in-app policies page, so the fragments name that page
                 (and its cancellation card) instead of an empty "#". */}
-            <a href="#policy-cancellation" onClick={e => { e.preventDefault(); onPolicies("cancellation"); }}>Cancellation Policy</a>
-            <a href="#policies" onClick={e => { e.preventDefault(); onPolicies(); }}>Privacy Policy</a>`n            <a href="#policies" onClick={e => { e.preventDefault(); onPolicies(); }}>Terms &amp; Conditions</a>
+            <a
+              href="#policy-cancellation"
+              onClick={(e) => {
+                e.preventDefault();
+                onPolicies("cancellation");
+              }}
+            >
+              Cancellation Policy
+            </a>
+            <a
+              href="#policies"
+              onClick={(e) => {
+                e.preventDefault();
+                onPolicies();
+              }}
+            >
+              Privacy Policy
+            </a>
+            `n{" "}
+            <a
+              href="#policies"
+              onClick={(e) => {
+                e.preventDefault();
+                onPolicies();
+              }}
+            >
+              Terms &amp; Conditions
+            </a>
           </div>
           <div className="footer-col footer-col-contact">
             <h4>Contact</h4>
-            <a href="tel:+917500960261"><Phone size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />+91 75009 60261</a>
-            <a href="mailto:raikholahomestay@gmail.com"><Mail size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Email Us</a>
-            <a href={WA_BOOKING_URL} target="_blank" rel="noopener noreferrer"><MessageCircle size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />WhatsApp</a>
+            <a href="tel:+917500960261">
+              <Phone
+                size={13}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-2px", marginRight: "5px" }}
+              />
+              +91 75009 60261
+            </a>
+            <a href="mailto:raikholahomestay@gmail.com">
+              <Mail
+                size={13}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-2px", marginRight: "5px" }}
+              />
+              Email Us
+            </a>
+            <a href={WA_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              <MessageCircle
+                size={13}
+                strokeWidth={2.2}
+                style={{ verticalAlign: "-2px", marginRight: "5px" }}
+              />
+              WhatsApp
+            </a>
             <div className="footer-book-row" ref={bookRowRef}>
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"><MapPin size={13} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Directions</a>
+              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
+                <MapPin
+                  size={13}
+                  strokeWidth={2.2}
+                  style={{ verticalAlign: "-2px", marginRight: "5px" }}
+                />
+                Directions
+              </a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
           <div>
-            <div className="footer-copy">&copy; 2026 Raikhola Homestay. All Rights Reserved.</div>
-            
+            <div className="footer-copy">
+              &copy; 2026 Raikhola Homestay. All Rights Reserved.
+            </div>
           </div>
-          <div className="footer-love">Made with <Heart size={12} strokeWidth={2.2} color="#e05656" style={{ verticalAlign: "-1px", margin: "0 2px" }} /> by <a href="https://linktr.ee/hackerfromhills" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Team Hackerfromhills</a></div>
-          <button ref={toTopRef} type="button" className="to-top" onClick={scrollToTop} aria-label="Back to top" title="Back to top">
+          <div className="footer-love">
+            Made with{" "}
+            <Heart
+              size={12}
+              strokeWidth={2.2}
+              color="#e05656"
+              style={{ verticalAlign: "-1px", margin: "0 2px" }}
+            />{" "}
+            by{" "}
+            <a
+              href="https://linktr.ee/hackerfromhills"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "underline" }}
+            >
+              Team Hackerfromhills
+            </a>
+          </div>
+          <button
+            ref={toTopRef}
+            type="button"
+            className="to-top"
+            onClick={scrollToTop}
+            aria-label="Back to top"
+            title="Back to top"
+          >
             <ArrowUp size={17} strokeWidth={2.6} />
           </button>
         </div>
@@ -2577,7 +3584,9 @@ function PolicyPage({ section, onClose }) {
 
   // Esc closes; arrow keys are left to the page scroll
   useEffect(() => {
-    const fn = e => { if (e.key === "Escape") requestClose(); };
+    const fn = (e) => {
+      if (e.key === "Escape") requestClose();
+    };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
   }, [requestClose]);
@@ -2593,28 +3602,58 @@ function PolicyPage({ section, onClose }) {
   }, [section]);
 
   return (
-    <div id="policies" className={`pol-page${closing ? " is-closing" : ""}`} role="dialog" aria-modal="true" aria-label="Hotel policies">
+    <div
+      id="policies"
+      className={`pol-page${closing ? " is-closing" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Hotel policies"
+    >
       <div className="rg-topbar">
-        <button className="rg-back" aria-label="Back to site" onClick={requestClose}>
+        <button
+          className="rg-back"
+          aria-label="Back to site"
+          onClick={requestClose}
+        >
           <ChevronLeft size={16} strokeWidth={2.4} /> Back
         </button>
         <span className="rg-brand">Raikhola Homestay</span>
       </div>
       <div className="pol-hero">
-        <span className="section-label"><ScrollText size={14} strokeWidth={2.2} style={{ verticalAlign: "-2px", marginRight: "5px" }} />Hotel Policies</span>
+        <span className="section-label">
+          <ScrollText
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Hotel Policies
+        </span>
         <h2 className="rg-title">Policies &amp; House Rules</h2>
-        <p className="rg-sub">At Raikhola Homestay, we aim to provide a comfortable and hassle-free stay. Please review our policies before booking.</p>
+        <p className="rg-sub">
+          At Raikhola Homestay, we aim to provide a comfortable and hassle-free
+          stay. Please review our policies before booking.
+        </p>
       </div>
       <div className="pol-grid">
         {POLICY_SECTIONS.map(({ id, Icon, title, items }) => (
-          <div key={id} id={`policy-${id}`} className="pol-card" ref={section === id ? targetRef : undefined}>
+          <div
+            key={id}
+            id={`policy-${id}`}
+            className="pol-card"
+            ref={section === id ? targetRef : undefined}
+          >
             <div className="pol-card-head">
-              <span className="pol-icon"><Icon size={17} strokeWidth={1.9} /></span>
+              <span className="pol-icon">
+                <Icon size={17} strokeWidth={1.9} />
+              </span>
               <h3>{title}</h3>
             </div>
             <ul>
               {items.map((item, i) => (
-                <li key={i}><span className="pol-num">{i + 1}.</span><span>{item}</span></li>
+                <li key={i}>
+                  <span className="pol-num">{i + 1}.</span>
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </div>
@@ -2622,10 +3661,21 @@ function PolicyPage({ section, onClose }) {
       </div>
       <div className="pol-contact">
         <h3>Questions? We're here to help.</h3>
-        <p>For any queries or special requests, feel free to contact us anytime.</p>
+        <p>
+          For any queries or special requests, feel free to contact us anytime.
+        </p>
         <div className="pol-contact-btns">
-          <a className="btn-primary" href="tel:+917500960261">📞 +91 75009 60261</a>
-          <a className="btn-outline" href="https://wa.me/917500960261?text=Hello!%20I%20have%20a%20question%20about%20your%20policies." target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+          <a className="btn-primary" href="tel:+917500960261">
+            📞 +91 75009 60261
+          </a>
+          <a
+            className="btn-outline"
+            href="https://wa.me/917500960261?text=Hello!%20I%20have%20a%20question%20about%20your%20policies."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp Us
+          </a>
         </div>
       </div>
     </div>
@@ -2643,17 +3693,20 @@ function useScrollReveal() {
     const blocks = document.querySelectorAll(".reveal:not(.is-visible)");
     if (!blocks.length) return;
     if (!("IntersectionObserver" in window) || reduceMotion()) {
-      blocks.forEach(el => el.classList.add("is-visible"));
+      blocks.forEach((el) => el.classList.add("is-visible"));
       return;
     }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
-    blocks.forEach(el => observer.observe(el));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+    );
+    blocks.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 }
@@ -2669,15 +3722,24 @@ export default function App() {
   // its own (the policy fragments, which only exist once that page is open), asks
   // for a new tab, or already handled its own click is left to the browser.
   useEffect(() => {
-    const onClick = e => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const onClick = (e) => {
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      )
+        return;
       const link = e.target.closest && e.target.closest('a[href^="#"]');
       if (!link) return;
       const id = decodeURIComponent(link.getAttribute("href").slice(1));
       if (!id || !document.getElementById(id)) return;
       e.preventDefault();
       glideToElement(id);
-      if (window.history && window.history.pushState) window.history.pushState(null, "", `#${id}`);
+      if (window.history && window.history.pushState)
+        window.history.pushState(null, "", `#${id}`);
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
@@ -2726,7 +3788,9 @@ export default function App() {
       const footerCircleOnScreen = r.top < vh && r.bottom > 0;
       btn.classList.toggle("show", pastHero && !footerCircleOnScreen);
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(place); };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(place);
+    };
 
     place();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -2768,7 +3832,9 @@ export default function App() {
       // Align its right edge with the row's, so it reads as part of that row
       btn.style.right = `${Math.round(Math.max(12, window.innerWidth - r.right))}px`;
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(place); };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(place);
+    };
 
     place();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -2785,13 +3851,24 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ width: "100%", maxWidth: "100%", overflowX: "hidden", position: "relative" }}>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        overflowX: "hidden",
+        position: "relative",
+      }}
+    >
       <style>{CSS}</style>
       <Navbar />
       <Hero />
       <About />
       <WhyStay />
-      <Rooms onBook={(room) => setBooking({ room, checkin: "", checkout: "", guests: "1" })} />
+      <Rooms
+        onBook={(room) =>
+          setBooking({ room, checkin: "", checkout: "", guests: "1" })
+        }
+      />
       <div className="divider" />
       <Services />
       <div className="divider" />
@@ -2799,18 +3876,36 @@ export default function App() {
       <VideoSection />
       <Testimonials />
       <Contact />
-      <Footer bookRowRef={footerBookRowRef} toTopRef={footerTopRef} onPolicies={(section) => setPolicies({ section })} />
+      <Footer
+        bookRowRef={footerBookRowRef}
+        toTopRef={footerTopRef}
+        onPolicies={(section) => setPolicies({ section })}
+      />
 
       {/* Floating back-to-top circle. Bottom-left so it never fights the Book
           Now pill in the bottom-right corner; JS toggles .show. */}
-      <button ref={floatTopRef} type="button" className="to-top to-top-float" onClick={scrollToTop} aria-label="Back to top" title="Back to top">
+      <button
+        ref={floatTopRef}
+        type="button"
+        className="to-top to-top-float"
+        onClick={scrollToTop}
+        aria-label="Back to top"
+        title="Back to top"
+      >
         <ArrowUp size={17} strokeWidth={2.6} />
       </button>
 
       {/* Floating Book Now → WhatsApp. Stays desktop-only in the corner until
           the footer's Directions row is on screen (phones), then docks there. */}
-      <a ref={floatBookRef} href={WA_BOOKING_URL} target="_blank" rel="noopener noreferrer" className="book-float" title="Book on WhatsApp">
-      <CalendarDays size={19} strokeWidth={2} />
+      <a
+        ref={floatBookRef}
+        href={WA_BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="book-float"
+        title="Book on WhatsApp"
+      >
+        <CalendarDays size={19} strokeWidth={2} />
         <span>Book Now</span>
         <span className="book-tooltip">Book instantly on WhatsApp</span>
       </a>
@@ -2827,25 +3922,12 @@ export default function App() {
       )}
 
       {/* Hotel Policies page (footer links) */}
-      {policies && <PolicyPage section={policies.section} onClose={() => setPolicies(null)} />}
+      {policies && (
+        <PolicyPage
+          section={policies.section}
+          onClose={() => setPolicies(null)}
+        />
+      )}
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
