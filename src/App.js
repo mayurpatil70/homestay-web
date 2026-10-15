@@ -45,6 +45,8 @@ import {
   Ban,
   AlertTriangle,
   ArrowUp,
+  Navigation,
+  ExternalLink,
 } from "lucide-react";
 import raikholaLogo from "./assets/images/raikhola-logo.jpg";
 import raikholaPoster from "./assets/images/raikhola-poster.jpg";
@@ -177,6 +179,9 @@ const WA_BOOKING_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_
 
 // Exact Google Maps listing for the property (footer "Directions" + contact "Open in Google Maps")
 const MAPS_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
+
+// Google Maps location link for Shivdarshan Homestay (Click on map card redirects here)
+const SHIVDARSHAN_MAPS_URL = "https://maps.google.com/?q=Shivdarshan+Homestay+Baluwakot+Dharchula+Uttarakhand";
 // Opens Google's pre-filled "write a review" dialog directly (placeid verified
 // against the Maps listing: Hackerfromhills, Dewar, Nashik, Maharashtra)
 const GOOGLE_REVIEW_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
@@ -1238,6 +1243,229 @@ const CSS = `
     .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
   }
 
+  /* ── GOOGLE MAP GRAPHICAL CARD (SHIVDARSHAN HOMESTAY) ── */
+  .map-section {
+    padding: 3rem 1.5rem 3.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .map-card-container {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #0d2230;
+    border: 1px solid rgba(200, 150, 62, 0.4);
+    box-shadow: 0 16px 48px rgba(26, 58, 74, 0.2);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    min-height: 450px;
+  }
+  .map-card-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 64px rgba(26, 58, 74, 0.3);
+    border-color: var(--gold);
+  }
+  .map-iframe-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .map-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: saturate(1.15) contrast(1.05);
+    pointer-events: none; /* Allows the wrapping <a> tag to receive clicks anywhere */
+  }
+  .map-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(10, 28, 40, 0.92) 0%, rgba(13, 34, 48, 0.65) 50%, rgba(10, 26, 38, 0.9) 100%);
+    pointer-events: none;
+  }
+  .map-card-content {
+    position: relative;
+    z-index: 3;
+    padding: 2.75rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    min-height: 450px;
+  }
+  .map-card-panel {
+    max-width: 450px;
+    background: rgba(26, 58, 74, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  }
+  .map-info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(200, 150, 62, 0.22);
+    border: 1px solid rgba(200, 150, 62, 0.5);
+    color: #ffd680;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+  .map-homestay-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.15rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .map-homestay-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 1.1rem;
+  }
+  .map-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .map-pill {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 0.3rem 0.7rem;
+    border-radius: 50px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .map-marker-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    text-align: center;
+  }
+  .map-pulse-beacon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e63946, #c8963e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 0 24px rgba(230, 57, 70, 0.75);
+    transition: transform 0.3s ease;
+  }
+  .map-card-container:hover .map-pulse-beacon {
+    transform: scale(1.12);
+  }
+  .map-pulse-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid #e63946;
+    animation: mapPulse 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+  .map-pulse-ring:nth-child(2) {
+    animation-delay: 0.7s;
+  }
+  @keyframes mapPulse {
+    0% { transform: scale(0.85); opacity: 0.95; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .map-marker-tooltip {
+    background: rgba(10, 30, 42, 0.94);
+    border: 1.5px solid var(--gold);
+    color: white;
+    padding: 0.55rem 1.1rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+  }
+  .map-marker-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+  }
+  .map-marker-hint {
+    color: var(--gold);
+    font-size: 0.76rem;
+    font-weight: 600;
+  }
+  .map-action-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+  .map-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: var(--gold);
+    color: var(--peak);
+    padding: 0.95rem 1.85rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 28px rgba(200, 150, 62, 0.45);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .map-card-container:hover .map-cta-button {
+    background: #e0a845;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px rgba(200, 150, 62, 0.65);
+  }
+  .map-action-caption {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 960px) {
+    .map-card-content {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 2.25rem 1.5rem;
+      gap: 1.5rem;
+    }
+    .map-card-panel { max-width: 100%; }
+    .map-marker-center { order: 2; margin: 0.5rem 0; }
+    .map-action-col { order: 3; width: 100%; }
+    .map-cta-button { width: 100%; justify-content: center; }
+  }
+  @media (max-width: 768px) {
+    .map-section { padding: 2.5rem 1.25rem 1.5rem; }
+    .map-card-panel { padding: 1.25rem; }
+    .map-homestay-name { font-size: 1.7rem; }
+  }
+
   /* ── FOOTER ── */
   .footer { background: #0a1e2b; padding: 3.5rem 1.5rem 1.5rem; }
   .footer-inner { max-width: 1200px; margin: 0 auto; }
@@ -1683,14 +1911,22 @@ function Hero() {
           <Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated
           Homestay on Adi Kailash Route
         </div>
-        <h1>
+        <h1 style={{ display: "none" }}>Best Homestay in Baluwakot, Dharchula - Raikhola Homestay</h1>
+        <h2 style={{
+          fontSize: "clamp(2.8rem, 7vw, 5.5rem)", 
+          fontWeight: 700, 
+          color: "white",
+          textShadow: "0 2px 20px rgba(0,0,0,0.3)", 
+          marginBottom: "0.75rem",
+          letterSpacing: "-0.01em",
+          fontFamily: "'Cormorant Garamond', serif"
+        }}>
           Stay Where the
           <br />
-          <span>Himalayas Begin</span>
-        </h1>
+          <span style={{ color: "var(--gold)", fontStyle: "italic" }}>Himalayas Begin</span>
+        </h2>
         <p className="hero-tagline">
-          Best stay for nature lovers &amp; Adi Kailash travelers · Baluwakot,
-          Uttarakhand
+          Best homestay in Baluwakot near Dharchula for nature lovers &amp; Adi Kailash travelers · Uttarakhand
         </p>
         <div className="hero-stats">
           {[
@@ -3351,6 +3587,101 @@ ${form.message}`;
   );
 }
 
+// ─── GOOGLE MAP GRAPHICAL CARD ──────────────────────────────────────────────
+function GoogleMapCard() {
+  return (
+    <section className="map-section" id="location">
+      <div className="reveal" style={{ textAlign: "center", marginBottom: "2rem" }}>
+        <span className="section-label">
+          <MapPin
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Location &amp; Route
+        </span>
+        <h2 className="section-title">Find Us on Google Maps</h2>
+        <p className="section-sub" style={{ maxWidth: "680px", margin: "0 auto" }}>
+          Located at Baluwakot near Dharchula, right on the sacred Adi Kailash &amp; Om Parvat highway.
+          Click anywhere on the map card to navigate directly in Google Maps.
+        </p>
+      </div>
+
+      <div className="reveal">
+        <a
+          href={SHIVDARSHAN_MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-card-container"
+          aria-label="Open Shivdarshan Homestay in Google Maps"
+          title="Click to view Shivdarshan Homestay on Google Maps"
+        >
+          {/* Background Live Map Embed */}
+          <div className="map-iframe-wrap">
+            <iframe
+              title="Shivdarshan Homestay Google Map Location"
+              src="https://maps.google.com/maps?q=Shivdarshan+Homestay,Baluwakot,Uttarakhand&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Vignette Overlay for High-Contrast Alpine Styling */}
+          <div className="map-card-overlay" />
+
+          {/* Graphical Card Foreground Content */}
+          <div className="map-card-content">
+            {/* Left Info Panel */}
+            <div className="map-card-panel">
+              <div className="map-info-badge">
+                <Star size={12} strokeWidth={2.4} fill="currentColor" />
+                <span>Google Maps Verified Location</span>
+              </div>
+              <h3 className="map-homestay-name">Shivdarshan Homestay</h3>
+              <p className="map-homestay-address">
+                <MapPin size={16} strokeWidth={2} style={{ flexShrink: 0, marginTop: "2px" }} />
+                <span>Baluwakot, Dharchula, Uttarakhand – Adi Kailash Highway</span>
+              </p>
+
+              <div className="map-tags-row">
+                <span className="map-pill">🏔️ Adi Kailash Yatra Route</span>
+                <span className="map-pill">🚗 13 km Before Dharchula</span>
+                <span className="map-pill">🅿️ Free Parking</span>
+                <span className="map-pill">⭐ 4.9 Rating</span>
+              </div>
+            </div>
+
+            {/* Center Animated Beacon Pin Highlighting Shivdarshan Homestay */}
+            <div className="map-marker-center">
+              <div className="map-pulse-beacon">
+                <div className="map-pulse-ring" />
+                <div className="map-pulse-ring" />
+                <MapPin size={24} strokeWidth={2.4} />
+              </div>
+              <div className="map-marker-tooltip">
+                <span className="map-marker-dot" />
+                <strong>Shivdarshan Homestay</strong>
+                <span className="map-marker-hint">Open Maps ↗</span>
+              </div>
+            </div>
+
+            {/* Right Action Button */}
+            <div className="map-action-col">
+              <div className="map-cta-button">
+                <Navigation size={18} strokeWidth={2.2} />
+                <span>Open in Google Maps</span>
+                <ExternalLink size={16} strokeWidth={2.2} />
+              </div>
+              <span className="map-action-caption">
+                Live GPS navigation &amp; directions
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  );
+}
+
 // ─── SMOOTH IN-PAGE SCROLL ──────────────────────────────────────────────────
 // Native smooth scrolling covers most of a long jump in a few frames and then
 // trickles the rest of the way — a jerk, then a hang. This drives the glide
@@ -3456,7 +3787,7 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
               Raikhola Homestay
             </div>
             <p className="footer-brand-desc">
-              A boutique mountain homestay in Baluwakot, Uttarakhand. The
+              Raikhola Homestay is the best-rated homestay in Baluwakot, near Dharchula. The
               perfect base for Adi Kailash pilgrims and Himalayan adventurers.
             </p>
             {/* Placeholder handles — swap in the real profile URLs when ready */}
@@ -3929,6 +4260,7 @@ export default function App() {
       <VideoSection />
       <Testimonials />
       <Contact />
+      <GoogleMapCard />
       <Footer
         bookRowRef={footerBookRowRef}
         toTopRef={footerTopRef}
