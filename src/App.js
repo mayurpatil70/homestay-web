@@ -177,14 +177,9 @@ const WA_BOOKING_MESSAGE = [
 ].join("\n");
 const WA_BOOKING_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_BOOKING_MESSAGE)}`;
 
-// Exact Google Maps listing for the property (footer "Directions" + contact "Open in Google Maps")
-const MAPS_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
-
-// Google Maps location link for Shivdarshan Homestay (Click on map card redirects here)
-const SHIVDARSHAN_MAPS_URL = "https://maps.google.com/?q=Shivdarshan+Homestay+Baluwakot+Dharchula+Uttarakhand";
-// Opens Google's pre-filled "write a review" dialog directly (placeid verified
-// against the Maps listing: Hackerfromhills, Dewar, Nashik, Maharashtra)
-const GOOGLE_REVIEW_URL = "https://share.google/5vBjA4wxJBAnwjFgp";
+// Exact Google Maps listing for Raikhola Homestay (Baluwakot, Dharchula)
+const MAPS_URL = "https://maps.app.goo.gl/qex4jeuJCcSx5QVT8";
+const GOOGLE_REVIEW_URL = "https://maps.app.goo.gl/qex4jeuJCcSx5QVT8";
 
 // Helper: sends email via EmailJS REST API (no npm package needed)
 async function sendEmail(templateId, templateParams) {
@@ -1243,7 +1238,7 @@ const CSS = `
     .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
   }
 
-  /* ── GOOGLE MAP GRAPHICAL CARD (SHIVDARSHAN HOMESTAY) ── */
+  /* ── GOOGLE MAP GRAPHICAL CARD (RAIKHOLA HOMESTAY) ── */
   .map-section {
     padding: 3rem 1.5rem 3.5rem;
     max-width: 1200px;
@@ -3609,18 +3604,18 @@ function GoogleMapCard() {
 
       <div className="reveal">
         <a
-          href={SHIVDARSHAN_MAPS_URL}
+          href={MAPS_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="map-card-container"
-          aria-label="Open Shivdarshan Homestay in Google Maps"
-          title="Click to view Shivdarshan Homestay on Google Maps"
+          aria-label="Open Raikhola Homestay in Google Maps"
+          title="Click to view Raikhola Homestay on Google Maps"
         >
           {/* Background Live Map Embed */}
           <div className="map-iframe-wrap">
             <iframe
-              title="Shivdarshan Homestay Google Map Location"
-              src="https://maps.google.com/maps?q=Shivdarshan+Homestay,Baluwakot,Uttarakhand&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              title="Raikhola Homestay Google Map Location"
+              src="https://maps.google.com/maps?q=Raikhola+Homestay,Baluwakot,Uttarakhand&t=&z=14&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             />
           </div>
@@ -3636,10 +3631,10 @@ function GoogleMapCard() {
                 <Star size={12} strokeWidth={2.4} fill="currentColor" />
                 <span>Google Maps Verified Location</span>
               </div>
-              <h3 className="map-homestay-name">Shivdarshan Homestay</h3>
+              <h3 className="map-homestay-name">Raikhola Homestay</h3>
               <p className="map-homestay-address">
                 <MapPin size={16} strokeWidth={2} style={{ flexShrink: 0, marginTop: "2px" }} />
-                <span>Baluwakot, Dharchula, Uttarakhand – Adi Kailash Highway</span>
+                <span>Raikhola Homestay, Baluwakot, Dharchula, Uttarakhand – Adi Kailash Highway</span>
               </p>
 
               <div className="map-tags-row">
@@ -3650,7 +3645,7 @@ function GoogleMapCard() {
               </div>
             </div>
 
-            {/* Center Animated Beacon Pin Highlighting Shivdarshan Homestay */}
+            {/* Center Animated Beacon Pin Highlighting Raikhola Homestay */}
             <div className="map-marker-center">
               <div className="map-pulse-beacon">
                 <div className="map-pulse-ring" />
@@ -3659,7 +3654,7 @@ function GoogleMapCard() {
               </div>
               <div className="map-marker-tooltip">
                 <span className="map-marker-dot" />
-                <strong>Shivdarshan Homestay</strong>
+                <strong>Raikhola Homestay</strong>
                 <span className="map-marker-hint">Open Maps ↗</span>
               </div>
             </div>
