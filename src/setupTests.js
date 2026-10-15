@@ -4,6 +4,20 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+// Suppress JSDOM virtualConsole stylesheet parsing warnings for complex modern CSS
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  const msg = typeof args[0] === 'string' ? args[0] : '';
+  if (
+    msg.includes('Could not parse CSS stylesheet') ||
+    msg.includes('VirtualConsole') ||
+    msg.includes('virtual-console')
+  ) {
+    return;
+  }
+  originalConsoleError(...args);
+};
+
 // jsdom ships no window.matchMedia, but App's phone-only Book Now docking effect
 // reads it to decide whether it should run. Default to "not a phone" so tests
 // that don't care about the media query get plain desktop behaviour.

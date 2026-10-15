@@ -44,10 +44,10 @@ test("dragging right goes back a slide, and a tiny wobble springs back", () => {
   const { slider, activeDot } = setup();
 
   drag(slider, 400, 700);            // drag right → wraps to the last slide
-  expect(activeDot()).toBe(8);
+  expect(activeDot()).toBe(11);
 
   drag(slider, 400, 396);            // only 4px — below the threshold, no slide change
-  expect(activeDot()).toBe(8);
+  expect(activeDot()).toBe(11);
 });
 
 test("a drag that starts on an arrow button keeps the arrow's own click", () => {

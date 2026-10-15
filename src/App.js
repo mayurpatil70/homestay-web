@@ -47,6 +47,8 @@ import {
   ArrowUp,
   Navigation,
   ExternalLink,
+  HelpCircle,
+  ChevronDown,
 } from "lucide-react";
 import raikholaLogo from "./assets/images/raikhola-logo.jpg";
 import raikholaPoster from "./assets/images/raikhola-poster.jpg";
@@ -1238,6 +1240,80 @@ const CSS = `
     .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
   }
 
+  /* ── FAQ SECTION (AEO & GEO OPTIMIZATION) ── */
+  .faq-section {
+    padding: 4.5rem 1.5rem 3rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 2rem;
+  }
+  .faq-item {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+  .faq-item:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 30px rgba(26,58,74,0.12);
+  }
+  .faq-item.is-open {
+    border-color: rgba(200,150,62,0.6);
+  }
+  .faq-header {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--peak);
+  }
+  .faq-icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--ice);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--peak);
+    flex-shrink: 0;
+    transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
+  }
+  .faq-item.is-open .faq-icon-wrap {
+    transform: rotate(180deg);
+    background: var(--gold);
+    color: white;
+  }
+  .faq-body {
+    padding: 0 1.5rem 1.35rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.75;
+    border-top: 1px solid var(--ice);
+    padding-top: 1rem;
+  }
+  @media (max-width: 768px) {
+    .faq-section { padding: 3rem 1.25rem 2rem; }
+    .faq-header { padding: 1.1rem 1.25rem; font-size: 0.98rem; }
+    .faq-body { padding: 0.85rem 1.25rem 1.15rem; font-size: 0.9rem; }
+  }
+
   /* ── GOOGLE MAP GRAPHICAL CARD (RAIKHOLA HOMESTAY) ── */
   .map-section {
     padding: 3rem 1.5rem 3.5rem;
@@ -1814,9 +1890,11 @@ function Navbar() {
 
   const links = [
     ["#rooms", "Rooms"],
-    ["#gallery", "Gallery"],
     ["#services", "Services"],
     ["#about", "About"],
+    ["#gallery", "Gallery"],
+    ["#faq", "FAQ"],
+    ["#location", "Location"],
     ["#contact", "Contact"],
   ];
 
@@ -1904,24 +1982,15 @@ function Hero() {
       <div className="hero-content">
         <div className="hero-badge">
           <Star size={13} strokeWidth={2.2} fill="currentColor" /> Top-Rated
-          Homestay on Adi Kailash Route
+          Homestay in Dharchula &amp; Baluwakot · Adi Kailash Route
         </div>
-        <h1 style={{ display: "none" }}>Best Homestay in Baluwakot, Dharchula - Raikhola Homestay</h1>
-        <h2 style={{
-          fontSize: "clamp(2.8rem, 7vw, 5.5rem)", 
-          fontWeight: 700, 
-          color: "white",
-          textShadow: "0 2px 20px rgba(0,0,0,0.3)", 
-          marginBottom: "0.75rem",
-          letterSpacing: "-0.01em",
-          fontFamily: "'Cormorant Garamond', serif"
-        }}>
+        <h1>
           Stay Where the
           <br />
-          <span style={{ color: "var(--gold)", fontStyle: "italic" }}>Himalayas Begin</span>
-        </h2>
+          <span>Himalayas Begin</span>
+        </h1>
         <p className="hero-tagline">
-          Best homestay in Baluwakot near Dharchula for nature lovers &amp; Adi Kailash travelers · Uttarakhand
+          Raikhola Homestay · Boutique mountain stay in Baluwakot near Dharchula for nature lovers &amp; Adi Kailash pilgrims · Uttarakhand
         </p>
         <div className="hero-stats">
           {[
@@ -3582,6 +3651,86 @@ ${form.message}`;
   );
 }
 
+// ─── AEO / GEO TRAVELERS' FAQ COMPONENT ──────────────────────────────────────
+const FAQ_ITEMS = [
+  {
+    q: "Where is Raikhola Homestay located in Dharchula / Baluwakot?",
+    a: "Raikhola Homestay is located in Baluwakot, District Pithoragarh, Uttarakhand. We are situated directly on the main highway, exactly 13 km before Dharchula on the sacred Adi Kailash & Om Parvat route. The homestay is easily accessible by car, bike, or bus with on-site parking and a helipad just 4 km away.",
+  },
+  {
+    q: "Why is Raikhola Homestay the best base for Adi Kailash & Om Parvat Yatra?",
+    a: "Run by Tikendra Singh Raikhola, an Indian Army veteran, our homestay provides a comfortable and peaceful base before heading to higher altitudes like Gunji, Nabi, and Kuti. We offer hot water at 5:00 AM before departure, pure home-cooked Kumaoni meals, local weather/road guidance, and reliable cab arrangements.",
+  },
+  {
+    q: "Does Raikhola Homestay assist with Inner Line Permits (ILP) and cabs?",
+    a: "Yes! Moving beyond Dharchula towards the Vyas Valley and Adi Kailash requires an Inner Line Permit. We guide guests on obtaining their permit quickly. All you need are your Aadhaar Card, a single passport-sized photo, and two active mobile numbers.",
+  },
+  {
+    q: "What meals are included and what are the food charges?",
+    a: "Standard stay is ₹1,000 per person, which includes evening tea, a complete home-cooked dinner (Roti, Dal, Rice, local seasonal vegetables, pure Cow Ghee, Raita, and Salad served at 8:00 PM), and morning bed tea at 6:00 AM. Hearty breakfast (hot Aloo Parathas, homemade pickle, and fresh Chaanch/Lassi) is made fresh on demand for ₹150 per person.",
+  },
+  {
+    q: "How close is the nearest helipad and is vehicle parking available?",
+    a: "The Baluwakot helipad is located just 4 km from Raikhola Homestay, making it ideal for heli-yatra pilgrims. We also provide secure, free on-site parking for all cars, SUVs, and motorbikes.",
+  },
+  {
+    q: "What are your check-in and check-out timings?",
+    a: "Check-in time is 12:00 PM and check-out is between 9:00 AM and 10:00 AM. Early check-in or late check-out is accommodated based on availability upon request.",
+  },
+];
+
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <section className="faq-section" id="faq">
+      <div className="reveal" style={{ textAlign: "center" }}>
+        <span className="section-label">
+          <HelpCircle
+            size={14}
+            strokeWidth={2.2}
+            style={{ verticalAlign: "-2px", marginRight: "5px" }}
+          />
+          Pilgrim &amp; Traveler Guide
+        </span>
+        <h2 className="section-title">Frequently Asked Questions</h2>
+        <p className="section-sub" style={{ maxWidth: "680px", margin: "0 auto" }}>
+          Everything you need to know about your stay, home-cooked Kumaoni meals, Adi Kailash permits, and travel routes near Dharchula.
+        </p>
+      </div>
+
+      <div className="faq-list reveal">
+        {FAQ_ITEMS.map((item, idx) => {
+          const isOpen = openIndex === idx;
+          return (
+            <div
+              key={idx}
+              className={`faq-item${isOpen ? " is-open" : ""}`}
+            >
+              <button
+                className="faq-header"
+                type="button"
+                onClick={() => setOpenIndex(isOpen ? -1 : idx)}
+                aria-expanded={isOpen}
+              >
+                <span>{item.q}</span>
+                <span className="faq-icon-wrap" aria-hidden="true">
+                  <ChevronDown size={18} strokeWidth={2.4} />
+                </span>
+              </button>
+              {isOpen && (
+                <div className="faq-body">
+                  <p>{item.a}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 // ─── GOOGLE MAP GRAPHICAL CARD ──────────────────────────────────────────────
 function GoogleMapCard() {
   return (
@@ -3817,9 +3966,11 @@ function Footer({ bookRowRef, toTopRef, onPolicies }) {
             <h4>Explore</h4>
             {[
               ["#rooms", "Rooms"],
-              ["#gallery", "Gallery"],
               ["#services", "Services"],
               ["#about", "Our Story"],
+              ["#gallery", "Gallery"],
+              ["#faq", "Travel FAQ"],
+              ["#location", "Map & Route"],
             ].map(([h, l]) => (
               <a key={h} href={h}>
                 {l}
@@ -4254,6 +4405,7 @@ export default function App() {
       <Gallery />
       <VideoSection />
       <Testimonials />
+      <FAQ />
       <Contact />
       <GoogleMapCard />
       <Footer
